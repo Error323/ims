@@ -10,11 +10,11 @@
 function I = imsRgbToHsv(I)
 	% HSV = rgb2hsv(I);
 
-    % Extract the R,G,B channels
-    R = I(:,:,1);
-    G = I(:,:,2);
-    B = I(:,:,3);
-    
+	% Extract the R,G,B channels
+	R = I(:,:,1);
+	G = I(:,:,2);
+	B = I(:,:,3);
+	
 	% Calculate intensity or value
 	I(:,:,3) = sum(I,3) ./ 3;
 
