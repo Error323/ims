@@ -13,7 +13,7 @@
 
 image = 'data/nemo2.jpg';
 
-I = im2double(imread(image));
+I = im2single(imread(image));
 
 figure('Name', 'Source image');
 
