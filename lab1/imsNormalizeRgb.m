@@ -9,8 +9,6 @@
 
 function I = imsNormalizeRgb(I)
 
-	I(100:200, 100:200, :) = 0;
-	
 	% V, the length of the RGB vector for each pixel
 	V = (I(:,:,1).^2 + I(:,:,2).^2 + I(:,:,3).^2).^0.5;
 
