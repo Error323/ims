@@ -18,5 +18,12 @@ In = imsNormalizeRgb(I);
 
 H = imsHistogram(In, M, 10);
 
-mesh(H);
+imsFindObject(In, H, 101, 'result1.png');
 
+I = im2single(imread('../data/nemo1.jpg'));
+
+In = imsNormalizeRgb(I);
+
+imsFindObject(In, H, 101, 'result2.png');
+
+mesh(H);

@@ -1,4 +1,4 @@
-% imsHistogram() - Converts RGB to normalized rgb (Lab 1)
+% imsHistogram() - construct a histogram for the r and g channel
 %
 %	INPUTS:
 %	 - I, NORMALIZED RGB image
