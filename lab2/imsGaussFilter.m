@@ -6,15 +6,18 @@
 %  - sigma, the standard deviation
 %
 % OUTPUTS:
-%  - Y, the 2d gaussian grid
+%  - G, the 2d gaussian grid
 
-function Y = imsGaussFilter(d, mu, sigma)
-	Y = zeros(d,d);
+function G = imsGaussFilter(d, mu, sigma)
+	G = zeros(d,d);
 	r = floor(d/2);
 	for i = -r:r
 		for j = -r:r
-			Y(i+r+1,j+r+1) = imsGauss(sqrt(i*i+j*j), mu, sigma);
+			G(i+r+1,j+r+1) = imsGauss(sqrt(i*i+j*j), mu, sigma);
 		end
 	end
 
-	Y = Y ./ imsGauss(0, mu, sigma);
+	G = G ./ imsGauss(0, mu, sigma);
+	
+	Gmin = max(G(:,1));
+	G = (G >= Gmin) .* G;
