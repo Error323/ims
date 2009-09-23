@@ -14,8 +14,8 @@ function I = imsRgbToHsi(I)
 	% Calculate intensity or value
 	I(:,:,3) = sum(I,3) ./ 3;
 
-	% Calculate hue
-	I(:,:,1) = atan( (sqrt(3).*(G-B)) ./ ((R-G)+(R-B)) ) ./ pi + 0.5;
+	% Calculate hue and normalize
+	I(:,:,1) = atan( (sqrt(3).*(G-B)) ./ ((R-G)+(R-B)) ) / pi + 0.5;
 
 	% Calculate saturation
     i = imsNormalizeRgb(I);
