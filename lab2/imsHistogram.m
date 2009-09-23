@@ -20,12 +20,16 @@ M = M(M > 0);
 
 H = zeros(n);
 
+R = int8(ceil(R .* n));
+G = int8(ceil(G .* n));
+
 for r = 1:n
 	for g = 1:n
-		Sr = (R > (r-1) / n) & (R <= r / n);
-		Sg = (G > (g-1) / n) & (G <= g / n);
+		Sr = (R == r);
+		Sg = (G == g);
 		S = Sr & Sg;
-		H(r,g) = sum(S .* M);
+		W = M(S);
+		H(r,g) = sum(W);
 	end
 end
 
