@@ -6,12 +6,12 @@
 %	OUTPUTS:
 %	 - void
 %
-%   See also imsNormalizeRgb imsRgbToOpponent imsRgbToHsv
+%   See also imsNormalizeRgb imsRgbToOpponent imsRgbToHsi
 
 
 %% Read an image (I) and show it
 
-image = 'data/nemo2.jpg';
+image = '../data/nemo2.jpg';
 
 I = im2single(imread(image));
 
@@ -34,8 +34,8 @@ figure('Name', 'RGB to Opponent Color Space');
 imshow(imsRgbToOpponent(I));
 
 
-%% RGB to HSV conversion
+%% RGB to HSI conversion
 
-figure('Name', 'RGB to HSV conversion');
+figure('Name', 'RGB to HSI conversion');
 
-imshow(imsRgbToHsv(I));
+imshow(imsRgbToHsi(I));
