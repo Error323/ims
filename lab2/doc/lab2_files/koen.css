@@ -1,0 +1,274 @@
+html { margin: 0; padding: 0; }
+body { font: 0.8em/1.5 Verdana, Arial, Helvetica, sans-serif;  
+  	background: #ddd; color: #000000;
+	margin: 0; padding: 0; height: 100%; }
+div#pic {
+	position: absolute;	left: 0;
+	border: #999 2px solid; margin: 2.2em; }
+#menu {
+	position: absolute;
+	left: 0; top: 170px;
+	padding: 0 1px 1px; margin: 0;
+	margin-left: 2.2em;
+  	font: bold 12px Verdana, sans-serif;
+  	background: transparent; 
+  	width: 10.5em;	}
+html#menu { width: 10em; }		
+#menu li {
+	list-style: none; 
+	margin: 0; padding: 0; 
+	border-top: 2px solid #ddd; 
+  	text-align: left;}  	
+#menu li a {
+	font: bold 12px Arial, Verdana, sans-serif;	
+	padding: 2px 0.5em 0.25em 0.5em;
+	display: block; 
+  	border-left: 0.8em solid #944; background: #fff;
+  	text-decoration: none;}  	
+#menu li a:link { color: #09f;}
+#menu li a:visited { color: #09f;}
+#menu li a:hover { border-color: #944; color: #09f; background: #ffc;}
+#menu li#valid { list-style: none; margin: 25px 0 0 0.5em; padding: 0; }
+#menu li#valid a { display: inline; background-color: transparent; border: 0; }
+#menu h3 { text-align: center; }
+
+.alt { display: none; }
+div#content {
+	background: #fff bottom right no-repeat; 	
+	width: 70%;	border-left: #999 2px solid; 
+	border-right: #999 2px solid; 
+	position: absolute;	top: 0;
+	left: 15%; right: 15%;	
+	z-index: 10; min-height: 100%; /* prevents bug in mozilla, but introduces one in IE6 */
+	margin-top: 0;	padding: 0;}
+div#main { margin: 0 30px 0 30px; }
+
+h1 { font-size: 1.4em; letter-spacing:2px; text-align: left;
+   		border-bottom: #944 5px solid;  width: 60%; }
+h2 { font-size: 1.2em; letter-spacing: 1px; }
+h2.pub { font-size: 1.2em; letter-spacing: 1px; margin-left: -2em}
+h3 { font-size: 1em; letter-spacing:1px;    
+   border-bottom: #944 5px solid; }
+h4 { font-size: 0.9em; letter-spacing: 1px; }
+li.year { margin-left: -1em; font-weight: bold;	list-style: none; }
+li.sub { list-style: circle; margin-left: 1em; }
+div#header { margin: 30px; padding: 5px; text-align: center; border-top: #944 5px solid; border-bottom: #944 5px solid; }
+div#title {	font-size: 2.2em; }
+div#institute {	font-size: 1.1em; }
+div#university { font-size: 1.1em; }
+ul {font-weight: bold; }
+li {font-weight: normal; }
+a:link    { color: #0099ff; text-decoration: none; }
+a:visited { color: #0099ff; text-decoration: none;  }
+a:active  { color: #ff0000; text-decoration: none; }
+a:hover   { color: #0099ff; background-color: #ffffcc; text-decoration: underline; }
+div.download { margin-left: 2em; font-size: 0.8em; }
+div#pdf { background: #fff url(../img/icons/pdf-mini.gif) left no-repeat; }
+div#pdf a{ margin-left: 20px; }
+div#ps { background: #fff url(../img/icons/ps-mini.gif) left no-repeat; }
+div#ps a{ margin-left: 20px; }
+div#zip { background: #fff url(../img/icons/zip-mini.gif) left no-repeat; }
+div#zip a{ 	margin-left: 20px; }
+.paper { margin: 0 0 2em 0.5em; line-height: 1.6; border-bottom: 1px solid #944; text-decoration: none; }
+div.download {margin: 1em 0 2em; }
+div.pubtitle { font-weight: bold;}
+.pubtitle a {border-bottom: 1px dotted #999; text-decoration: none;}
+.pubtitle a:visited {border-bottom: 1px dotted #999; text-decoration: none;}
+div#abstract { margin-left: 2em; }
+div.firstline { margin-left: 2em; font-size: 90%; }
+div.line { margin-left: 4em; font-size: 90%; }
+div#footer { text-align: left; margin: 2.5em 0 1.5em; border: 2px solid #999;	border-width: 2px 2px 2px 2em;
+	padding: 0.5em 0.5em 0.5em 1em;	color: #aaa; font-size: 80%; letter-spacing: 1px;	
+}
+p.first:first-letter { font-size: 133%; font-weight: bold;}
+h2#pub {margin-top: 2em; font-size: 125%;}
+span.italic { font-style: italic; }
+#pubnav { background-color: #fff; margin-left: -2em; } 
+#pubnav li{ background: #fff url(http://staff.science.uva.nl/~cgmsnoek/img/icons/sort-mini.gif) left no-repeat;
+	list-style: none; display: inline; }
+#pubnav a { font-weight: bold; font-size: 1em;	margin: 0 1em 0 16px; }
+#pubnav a:link    { color: #09f; }
+#pubnav a:visited { color: #09f; }
+#pubnav a:active  { color: #09f; }
+#pubnav a:hover   { color: #09f; }
+
+
+#contactlist li {
+	list-style: none; 
+	margin: 0; padding: 0; 
+	margin-left: -10px;
+	border-left: 5px solid #944; 
+        border-bottom: 5px solid #fff;
+  	text-align: left;}  	
+
+.abstract {
+  font-size: 8px;
+  border: 1px solid #944;
+  margin: 10px;
+}
+
+span.contactlistname {
+color: #fff; 
+background-color: #944; 
+letter-spacing: 1px; 
+text-align: right; 
+font: bold 12px lucida console; 
+width: 100px; 
+padding: 3px;
+border-bottom: 3px solid #fff;
+border-right: 10px solid #fff;
+display: block;
+}
+
+span.contactlistvalue {
+    margin-left: 5px;
+}
+
+table.calender {
+	border-width: 1px;
+	border-spacing: 0px;
+	border-style: ridge;
+	border-color: #808080;
+	border-collapse: collapse;
+	background-color: #ffffff;
+}
+table.calender th {
+	border-width: 1px;
+	padding: 2px;
+	border-style: inset;
+	border-color: #808080;
+	background-color: #ffffff;
+}
+table.calender td {
+	border-width: 1px;
+	padding: 2px;
+	border-style: inset;
+	border-color: #808080;
+	background-color: #ffffff;
+	text-align: center;
+}
+
+#keyref 
+	{
+	margin: 1em 30px 1em 30px;
+	background: #eee;
+	border: dashed 3px #ccc;
+	padding: 20px;
+	}
+
+#keyref a:link    { color: #000; text-decoration: underline; }
+#keyref a:visited { color: #000; text-decoration: underline;  }
+#keyref a:active  { color: #000 }
+#keyref a:hover   { color: #000; }
+
+#keyref a.red:link    { color: #f00; text-decoration: underline; }
+#keyref a.red:visited { color: #f00; text-decoration: underline;  }
+#keyref a.red:active  { color: #f00 }
+#keyref a.red:hover   { color: #f00; }
+
+   pre { font-size: 1.2em; font-family: monospace; margin-right: 5px; background: #eee;}
+.code { font-size: 1.2em; font-family: monospace; margin-right: 5px; background: #eee;}
+
+
+/* Basilic */
+
+.results {
+	margin: 10px 3%;
+	text-align: center;
+}
+.results .year {
+	position: relative;
+	font-size:x-large;
+	color:#444;
+	letter-spacing:2px;
+	font-weight:bold;
+	background:#CCC;
+	text-align:left;
+	border: solid 1px #558;
+	padding: 3px 0px 2px 20px;
+	margin-top: 5px;
+	margin-bottom: 12px;
+}
+
+.results .imgMovies {
+	margin-left: 32%;
+	padding: 0;
+	text-align: center;
+}
+
+.results .thumb {
+	position: relative;
+	float: left;
+	padding: 0px;
+	margin: 0px;
+	width: 111px;
+	height: 88px;
+}
+.image {
+	background-image: url("http://www.science.uva.nl/research/publications/images/thumbImg.png");
+}
+.movie {
+	background-image: url("http://www.science.uva.nl/research/publications/images/thumbMovie.png");
+}
+.image:hover {
+	background-image: url("http://www.science.uva.nl/research/publications/images/thumbImgHover.png");
+}
+.movie:hover {
+	background-image: url("http://www.science.uva.nl/research/publications/images/thumbMovieHover.png");
+}
+.results .thumb img {
+	margin: auto;
+	display: block;
+}
+
+.list .ref {
+	margin-left: 130px;
+	position: relative;
+	text-align:left;
+}
+.gallery .ref {
+	float: left;
+	position: relative;
+	text-align: left;
+	font-size: small;
+	padding: 0px;
+	margin: 0px;
+	width: 30%;
+}
+.results pre {
+        margin-left:20px;
+	text-align: left;
+}
+
+.results .interYear {
+	height: 20px;
+	clear: both;
+}
+
+.results hr {
+	width: 80%;
+	margin: 12px 130px;
+	padding: 0px;
+	height: 2px;
+	border: 0px;
+	background: #DDE;
+	clear: both;
+}
+.gallery hr {
+	margin: 50px 130px;
+}
+
+.title {
+	font-size: medium;
+	padding-top: 6px;
+	margin-bottom: 3px;
+	font-weight: bold;
+}
+.doc {
+	vertical-align: middle;
+}
+/*
+.authors {
+	margin: 3px 0px;
+}
+*/

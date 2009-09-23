@@ -1,0 +1,181 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<title>Koen van de Sande: Intelligent Multimedia Systems Lab Course</title>
+<meta name="description" content="Koen van de Sande @ University of Amsterdam.">
+<link rel="stylesheet" type="text/css" media="all" title="main" href="lab2_files/koen.css">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+</head><body>
+
+<div id="pic"><a href="http://staff.science.uva.nl/%7Eksande/"><img src="lab2_files/me.jpg" alt="me" border="0" height="136" width="118"></a></div>
+<ul id="menu">
+<li><h3>Navigation</h3></li>
+<li><a href="http://staff.science.uva.nl/%7Eksande/index">Contact</a></li>
+<li><a href="http://staff.science.uva.nl/%7Eksande/research">Research</a></li>
+<li><a href="http://staff.science.uva.nl/%7Eksande/research/colordescriptors">Color Descriptors</a></li>
+<li><a href="http://staff.science.uva.nl/%7Eksande/publications">Publications</a></li>
+<li><a href="http://staff.science.uva.nl/%7Eksande/downloads">Downloads</a></li>
+<li><a href="http://staff.science.uva.nl/%7Eksande/teaching">Teaching</a></li>
+<li><a href="http://staff.science.uva.nl/%7Eksande/soos">AIO Soos</a></li>
+<li><a href="http://staff.science.uva.nl/%7Eksande/personal">Personal</a></li>
+<li id="valid">
+<a href="http://validator.w3.org/check/referer"><img src="lab2_files/xhtml.png" alt="Valid XHTML 1.0!" border="0" height="44" width="44"></a><a href="http://jigsaw.w3.org/css-validator/check/referer"><img src="lab2_files/css.png" alt="Valid CSS!" border="0" height="44" width="44"></a></li>
+</ul>
+
+<div id="content">
+  <div id="header">
+    <div id="title">Homepage of Koen van de Sande</div>
+    <div id="institute"><a href="http://www.science.uva.nl/research/isla/" target="extern">Intelligent Systems Lab Amsterdam</a> &amp; <a href="" target="extern">Vidi Video</a></div>
+    <div id="university"><a href="http://www.uva.nl/" target="extern">University of Amsterdam</a></div>
+  </div>
+<div id="main">
+
+<h1>Intelligent Multimedia Systems Lab 2</h1>
+
+<ul style="text-align: center; font-weight: bolder; font-size: 130%; padding-bottom: 5px; padding-top: 5px; padding-left: 0pt; margin-top: 0pt; margin-left: 0pt; background-color: rgb(255, 255, 204); width: 100%; line-height: 18px;">
+<li style="display: inline;"><a href="http://staff.science.uva.nl/%7Eksande/teaching/ims/">Overview</a></li>
+<li style="display: inline;"><a href="http://staff.science.uva.nl/%7Eksande/teaching/ims/lab1">Lab 1</a></li>
+<li style="display: inline;"><a href="http://staff.science.uva.nl/%7Eksande/teaching/ims/lab2">Lab 2</a></li>
+<li style="display: inline;"><a href="http://staff.science.uva.nl/%7Eksande/teaching/ims/lab3">Lab 3</a></li>
+<li style="display: inline;"><a href="http://staff.science.uva.nl/%7Eksande/teaching/ims/lab4">Lab 4</a></li>
+<li style="display: inline;"><a href="http://staff.science.uva.nl/%7Eksande/teaching/ims/lab5">Lab 5</a></li>
+<li style="display: inline;"><a href="http://staff.science.uva.nl/%7Eksande/teaching/ims/lab6">Lab 6</a></li>
+<li style="display: inline;"><a href="http://staff.science.uva.nl/%7Eksande/teaching/ims/lab7">Lab 7</a></li>
+<li style="display: inline;"><a href="http://staff.science.uva.nl/%7Eksande/teaching/ims/lab8">Lab 8</a></li>
+<li style="display: inline;"><a href="http://staff.science.uva.nl/%7Eksande/teaching/ims/lab9">Lab 9</a></li>
+<li style="display: inline;"><a href="http://staff.science.uva.nl/%7Eksande/teaching/ims/lab10">Lab 10</a></li>
+<li style="display: inline;"><a href="http://staff.science.uva.nl/%7Eksande/teaching/ims/lab11">Lab 11</a></li>
+<li style="display: inline;"><a href="http://staff.science.uva.nl/%7Eksande/teaching/ims/lab12">Lab 12</a></li>
+</ul>
+
+
+<p><i>
+In this lab you will be introduced to histograms for object
+representation. The <em>Mean-Shift</em> tracking algorithm uses a
+histogram for object representation, so this is one of the parts of the
+final implementation.</i>
+</p>
+
+<h2>More information on last week's assignment</h2>
+<p>A few remarks on last week's assignment. After reading an image from disk
+with <code>imread</code>, the data is of type <code>uint8</code>. This
+means that are values of the image are stored as integer-type, and <em>not</em>
+as floating point values. Before doing anything with this image, it is
+necessary to convert the image to type <code>double</code>. The easiest way
+to do this, is by using the command <code>im2double</code>, which scales the
+values between 0 and 1. Note that omitting this step will <em>not</em> cause
+an error in the subsequent calculations, but the values will simply be
+rounded off to the nearest integer value. In the case of converting to
+normalized-<em>rgb</em>, this means that all values will become either
+0 or 1!</p>
+
+<p>Most of you implemented the function to convert <em>RGB</em> to <em>rgb</em>
+correctly, but did not take into account black pixels. In the case of a black
+pixel, the intensity of the pixel (i.e. R + G + B) is 0. Hence, computing
+r = R/(R+G+B) is not defined, and consequently the conversion is quite noisy
+for pixels with a low intensity (i.e. near-black pixels). The best way to
+deal with this, is to identify the pixels with a low intensity (or at least the
+complete black pixels), and deal with these pixels separately. You can do this
+by using logical arrays. Take, as an example, the following simple computation:<br>
+</p><pre>A = [-3 3 -2 2 -1 1];
+B = A .* 2;
+</pre>
+Now, if we would only want to multiply the positive values with two, and leave the
+negative values as they are, then we could create and use a logical array in the
+following way:<br>
+<pre>mask = A &gt; 0;
+B(mask) = A(mask).*2;
+B(~mask) = A(~mask);
+</pre>
+You can apply this on the conversion of <em>RGB</em> to <em>rgb</em> by extending
+this to 2 or more dimensions.
+<p>
+For the opponent color space, read the section on the opponent color
+theory in Theo's color survey. For the formula, have a look at the
+first publication in my publication list.
+</p>
+
+<h2>Details on this week's assignment</h2>
+<p>
+This weeks task is to experiment with histogram creation and histogram
+back projection. You can use the <a href="http://staff.science.uva.nl/%7Eksande/teaching/ims/data">images of Nemo</a> (or
+any other image, for that matter) as test images. For instance, as a
+first step, try to create a representation of Nemo, and see if histogram
+back projection can find the location of Nemo in this image.
+</p>
+<p>
+Histograms are frequently used for image and
+object representation, as you might know. A histogram contains information
+about the colours present in an object. Histograms are of course not limited
+to colour, other aspects of objects can also be used in the histogram. For
+this lab we will assume colour histograms, but you are free to experiment
+with other features for your final application.
+</p>
+<p>
+A histogram can be seen as a (quantised) representation of the colours
+in an image, without any of the spatial information. But histograms are
+also a way to represent statistical distributions, representing the
+distribution of colours in a certain object. Seen in this light, the
+values in the histogram bins represent the likelihood that a colour
+occurs in the represented object.
+</p>
+<p>
+This histogram data can be used to detect a known object through
+<em>histogram back projection</em>. If we assume that our histogram of
+the object contains a representative distribution for the target object,
+we can use this to detect that object. Since the bins in the histogram
+indicate the likelihood that a pixel of that colour is part of the
+target object, we assign all pixels in the candidate image the value
+from their corresponding histogram bins. Pixels that have a colour that
+is dominant in the target object will have a high value and are as such
+visible in the likelihood image.
+</p>
+<p>
+To restrict the histogram to an object instead of a
+whole image, you could perform several tricks. You could crop the image
+and create an image containing only the object. Or you could use the
+masking that you also used in the previous lab. This mask could be
+filled parametrically (using some sort of function are inequality, e.g.
+<code>x &lt; 10 || x &gt; 213</code>). Another option is to open the image in
+an editing program, e.g. Paint, and paint the object white and the rest
+of the image black, and create a mask from this image.
+</p>
+<p>
+Sometimes the result of this procedure can be improved by weighting the
+histogram with a histogram of background objects (i.e. everything but
+the target). This histogram is simply the ratio of the target histogram
+divided by the non-target histogram. The result of this procedure is
+that colour values, which are also prominent in the background, will
+have a lower value. Some experimenting is needed to see if this
+theoretical improvement also leads to real-life improvements.
+</p>
+
+<p>
+So, to summarize, for this week's assignment, you should:<br>
+</p><ul>
+<li>Implement a function to create a 2D- or 3D-histogram of your image,
+depending on the color space you are using. For instance, RGB requires a
+3D-histogram, normalized-RGB, i.e. <em>rgb</em>, only needs a 2D-histogram
+(why?). Try visualizing your histogram to verify that it is correct.</li>
+<li>In the opponent color space, negative values can occur. Why?</li>
+<li>Use histogram back projection to find an learned object (e.g. Nemo) back
+in an image containing this object (a visual inspection to see if you can recognize
+the location of Nemo is sufficient).
+Try several of the color spaces that you
+implemented, and analyze the results on different images. In what color spaces
+can find the object back? Are there any conditions that might cause the failure
+of finding the object back, or do certain color spaces perform better than others?</li>
+</ul>
+
+<p>Well, that's it for now. Have fun!</p>
+
+<br>
+<br>
+</div>
+</div>
+<script src="lab2_files/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-596261-4";
+urchinTracker();
+</script>
+</body></html>
