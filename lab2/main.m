@@ -16,14 +16,13 @@ M = rgb2gray(im2single(imread('../data/nemo2_mask.jpg')));
 
 In = imsNormalizeRgb(I);
 
-H = imsHistogram(In, M, 10);
-
-imsFindObject(In, H, 101, 'result1.png');
+H = imsHistogram(In, M, 5);
 
 I = im2single(imread('../data/nemo1.jpg'));
 
 In = imsNormalizeRgb(I);
 
-imsFindObject(In, H, 101, 'result2.png');
-
-mesh(H);
+[x,y,r,e] = imsFindObject(In, H, 75, 'img/result2.png');
+I = imsDrawCircle(I,x,y,r,5);
+figure;imshow(I);
+%mesh(H);

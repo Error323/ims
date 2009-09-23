@@ -12,18 +12,24 @@
 %    - e, error
 
 function [x, y, r, e] = imsFindObject(I, Ho, d, filename)
+    e = 1;
     r = floor(d/2);
-    [Y,X,Z] = size(I);
+    [Y,X,Z_] = size(I);
     J = zeros(size(I,1), size(I,2));
     M = imsGaussFilter(d);
-    for y = r+1:(Y-r-1)
-        for x = r+1:(X-r-1)
-            F = I((y-r:y+r), (x-r:x+r), :);
+    for i = r+1:2:(Y-r-1)
+        for j = r+1:2:(X-r-1)
+            F = I((i-r:i+r), (j-r:j+r), :);
             H = imsHistogram(F, M, size(Ho,1));
-            J(y,x) = sum(sum((H - Ho).^2));
+            J(i,j) = sum(sum((H - Ho).^2));
+            if (J(i,j) < e)
+                y = i;
+                x = j;
+                e = J(i,j);
+            end
         end
     end
     J = -J;
     J = (J - min(J(:))) ./ (max(J(:)) - min(J(:)));
-    imshow(J);figure;
+    figure;imshow(J);
     imwrite(J, filename);
