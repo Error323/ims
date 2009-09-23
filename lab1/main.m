@@ -14,7 +14,7 @@
 image = '../data/nemo2.jpg';
 
 I = im2single(imread(image));
-img = imsNormalizeValues(img);
+img = imsNormalizeValues(I);
 img = [I(:,:,1); I(:,:,2); I(:,:,3)];
 
 %% RGB to normalized rgb conversion
