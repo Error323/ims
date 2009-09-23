@@ -1,17 +1,17 @@
 % imsFindObject(I, H, d) - find the 2D coordinate of an object
 %
-%	INPUTS:
-%	 - I, normalized rgb image
-%	 - H, the object histogram 
-%	 - d, the dimensions
-%
-%	OUTPUTS:
-%	 - x, coordinate of located object
-%    - y, coordinate of located object
-%    - r, radius of the object located
-%    - e, error
+% INPUTS:
+%  - I, normalized rgb image
+%  - H, the object histogram 
+%  - d, the dimensions
+% 
+% OUTPUTS:
+%  - x, coordinate of located object
+%  - y, coordinate of located object
+%  - r, radius of the object located
+%  - e, error
 
-function [x, y, r, e] = imsFindObject(I, Ho, d, filename)
+function [x, y, r, e] = imsFindObject(I, Ho, d)
     e = 1;
     r = floor(d/2);
     [Y,X,Z_] = size(I);

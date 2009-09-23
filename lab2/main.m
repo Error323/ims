@@ -1,12 +1,12 @@
 % main - Run this function for a demonstration of Lab 2
 %
-%	INPUTS:
-%	 - void
+% INPUTS:
+%  - void
+% 
+% OUTPUTS:
+%  - void
 %
-%	OUTPUTS:
-%	 - void
-%
-%   See also 
+%  See also imsNormalizeRgb imsHistogram imsFindObject imsDrawCircle
 
 %% Read image and mask
 
@@ -22,7 +22,8 @@ I = im2single(imread('../data/nemo1.jpg'));
 
 In = imsNormalizeRgb(I);
 
-[x,y,r,e] = imsFindObject(In, H, 75, 'img/result2.png');
+[x,y,r,e] = imsFindObject(In, H, 75);
+
 I = imsDrawCircle(I,x,y,r,5);
+
 figure;imshow(I);
-%mesh(H);
