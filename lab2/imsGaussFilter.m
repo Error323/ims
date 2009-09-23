@@ -1,23 +1,26 @@
-% imsGaussFilter(d, mu, sigma) - Computes normal distribution of a 2D grid
+% imsGaussFilter(d) - Computes normal distribution of a 2D grid
 %
 % INPUTS:
-%  - d, the dimensions of x and y
-%  - mu, the mean
-%  - sigma, the standard deviation
+%  - d, the dimensions of the filter
 %
 % OUTPUTS:
 %  - G, the 2d gaussian grid
 
-function G = imsGaussFilter(d, mu, sigma)
-	G = zeros(d,d);
+function G = imsGaussFilter(d)
+
 	r = floor(d/2);
-	for i = -r:r
-		for j = -r:r
-			G(i+r+1,j+r+1) = imsGauss(sqrt(i*i+j*j), mu, sigma);
-		end
+	s = floor(r/2);
+
+	G = zeros(2*r+1);
+	
+	for x = -r:r
+		G(r+x+1) = imsGauss(x, 0, s);
 	end
 
-	G = G ./ imsGauss(0, mu, sigma);
+	G = G * G';
+		
+	G = G ./ G(r+1, r+1);
 	
-	Gmin = max(G(:,1));
-	G = (G >= Gmin) .* G;
+	G = G .* imsCircleFilter(2*r+1);
+	
+	
