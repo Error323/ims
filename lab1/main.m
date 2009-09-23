@@ -6,7 +6,7 @@
 %	OUTPUTS:
 %	 - void
 %
-%   See also imsNormalizeRgb imsRgbToOpponent imsRgbToHsv
+%   See also imsNormalizeRgb imsRgbToOpponent imsRgbToHsv imsNormalizeValues
 
 
 %% Read an image (I) and show all channels
@@ -14,23 +14,27 @@
 image = 'data/nemo2.jpg';
 
 I = im2single(imread(image));
+img = imsNormalizeValues(img);
 img = [I(:,:,1); I(:,:,2); I(:,:,3)];
 
 %% RGB to normalized rgb conversion
 
 rgb = imsNormalizeRgb(I);
+rgb = imsNormalizeValues(rgb);
 img = [img, [rgb(:, :, 1); rgb(:, :, 2); rgb(:, :, 3)]];
 
 
 %% RGB to Opponent Color Space conversion
 
 opp = imsRgbToOpponent(I);
+opp = imsNormalizeValues(opp);
 img = [img, [opp(:, :, 1); opp(:, :, 2); opp(:, :, 3)]];
 
 
 %% RGB to HSV conversion
 
 hsi = imsRgbToHsv(I);
+hsi = imsNormalizeValues(hsi);
 img = [img, [hsi(:, :, 1); hsi(:, :, 2); hsi(:, :, 3)]];
 
 
