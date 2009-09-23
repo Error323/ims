@@ -33,3 +33,4 @@ function [x, y, r, e] = imsFindObject(I, Ho, d, filename)
     J = (J - min(J(:))) ./ (max(J(:)) - min(J(:)));
     figure;imshow(J);
     imwrite(J, filename);
+    imwrite(J, filename);
