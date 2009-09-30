@@ -17,8 +17,8 @@ function [x, y, r, e] = imsFindObject(I, Ho, d)
     [Y,X,Z_] = size(I);
     J = zeros(size(I,1), size(I,2));
     Mask = imsGaussFilter(d);
-    for i = 1:10:Y
-        for j = 1:10:X
+    for i = 1:1:Y
+        for j = 1:1:X
 			Ymin = max(i-r, 1);
 			Ymax = min(i+r, Y);
 			Xmin = max(j-r, 1);
@@ -41,3 +41,5 @@ function [x, y, r, e] = imsFindObject(I, Ho, d)
             end
         end
     end
+
+    imwrite(1-J, 'img/nemo1_bp.png');

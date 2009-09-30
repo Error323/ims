@@ -2,13 +2,13 @@
 clear;
 close all;
 
-%I = imread('../lab2/img/nemo1_bp.png');
-I = imread('rice.png');
+I = imread('../lab2/img/nemo1_bp.png');
+%I = imread('rice.png');
 figure;
 imshow(I);
 
 %% 2. Estimate the Value of Background Pixels
-background = imopen(I,strel('disk',15));
+background = imopen(I,strel('disk',40));
 figure;
 imshow(background);
 
@@ -29,11 +29,10 @@ imshow(I3);
 
 %% 6. Create a Binary Version of the Image
 level = graythresh(I3);
+level = 0.95;
 bw = im2bw(I3,level); 
 figure;
 imshow(bw);
-
-whos;
 
 %% 7. Determine the Number of Objects in the Image
 [labeled, numObjects] = bwlabel(bw,4);
@@ -41,6 +40,7 @@ whos;
 numObjects
 
 %% 8. Examine the Label Matrix
+figure;
 imshow(labeled, []);
 
 %% 9. Display the Label Matrix as a Pseudocolor Indexed Image
@@ -50,9 +50,6 @@ imshow(pseudo_color);
 
 %% 10. Measure Object Properties in the Image
 graindata = regionprops(labeled,'basic')
-graindata(51).Area
-graindata(51).Centroid
-graindata(51).BoundingBox
 
 %% 11. Compute Statistical Properties of Objects in the Image
 maxarea = max([graindata.Area])
@@ -64,7 +61,6 @@ mean([graindata.Area])
 figure;
 hist([graindata.Area],20)
 
-
-%% Wait;
+%% Wait and close after
 waitforbuttonpress;
 close all;
