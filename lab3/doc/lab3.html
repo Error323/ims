@@ -1,0 +1,163 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<title>Koen van de Sande: Intelligent Multimedia Systems Lab Course</title>
+<meta name="description" content="Koen van de Sande @ University of Amsterdam.">
+<link rel="stylesheet" type="text/css" media="all" title="main" href="lab3_files/koen.css">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+</head><body>
+
+<div id="pic"><a href="http://staff.science.uva.nl/%7Eksande/"><img src="lab3_files/me.jpg" alt="me" border="0" height="136" width="118"></a></div>
+<ul id="menu">
+<li><h3>Navigation</h3></li>
+<li><a href="http://staff.science.uva.nl/%7Eksande/index">Contact</a></li>
+<li><a href="http://staff.science.uva.nl/%7Eksande/research">Research</a></li>
+<li><a href="http://staff.science.uva.nl/%7Eksande/research/colordescriptors">Color Descriptors</a></li>
+<li><a href="http://staff.science.uva.nl/%7Eksande/publications">Publications</a></li>
+<li><a href="http://staff.science.uva.nl/%7Eksande/downloads">Downloads</a></li>
+<li><a href="http://staff.science.uva.nl/%7Eksande/teaching">Teaching</a></li>
+<li><a href="http://staff.science.uva.nl/%7Eksande/soos">AIO Soos</a></li>
+<li><a href="http://staff.science.uva.nl/%7Eksande/personal">Personal</a></li>
+<li id="valid">
+<a href="http://validator.w3.org/check/referer"><img src="lab3_files/xhtml.png" alt="Valid XHTML 1.0!" border="0" height="44" width="44"></a><a href="http://jigsaw.w3.org/css-validator/check/referer"><img src="lab3_files/css.png" alt="Valid CSS!" border="0" height="44" width="44"></a></li>
+</ul>
+
+<div id="content">
+  <div id="header">
+    <div id="title">Homepage of Koen van de Sande</div>
+    <div id="institute"><a href="http://www.science.uva.nl/research/isla/" target="extern">Intelligent Systems Lab Amsterdam</a> &amp; <a href="" target="extern">Vidi Video</a></div>
+    <div id="university"><a href="http://www.uva.nl/" target="extern">University of Amsterdam</a></div>
+  </div>
+<div id="main">
+
+<h1>Intelligent Multimedia Systems Lab 3</h1>
+
+<ul style="text-align: center; font-weight: bolder; font-size: 130%; padding-bottom: 5px; padding-top: 5px; padding-left: 0pt; margin-top: 0pt; margin-left: 0pt; background-color: rgb(255, 255, 204); width: 100%; line-height: 18px;">
+<li style="display: inline;"><a href="http://staff.science.uva.nl/%7Eksande/teaching/ims/">Overview</a></li>
+<li style="display: inline;"><a href="http://staff.science.uva.nl/%7Eksande/teaching/ims/lab1">Lab 1</a></li>
+<li style="display: inline;"><a href="http://staff.science.uva.nl/%7Eksande/teaching/ims/lab2">Lab 2</a></li>
+<li style="display: inline;"><a href="http://staff.science.uva.nl/%7Eksande/teaching/ims/lab3">Lab 3</a></li>
+<li style="display: inline;"><a href="http://staff.science.uva.nl/%7Eksande/teaching/ims/lab4">Lab 4</a></li>
+<li style="display: inline;"><a href="http://staff.science.uva.nl/%7Eksande/teaching/ims/lab5">Lab 5</a></li>
+<li style="display: inline;"><a href="http://staff.science.uva.nl/%7Eksande/teaching/ims/lab6">Lab 6</a></li>
+<li style="display: inline;"><a href="http://staff.science.uva.nl/%7Eksande/teaching/ims/lab7">Lab 7</a></li>
+<li style="display: inline;"><a href="http://staff.science.uva.nl/%7Eksande/teaching/ims/lab8">Lab 8</a></li>
+<li style="display: inline;"><a href="http://staff.science.uva.nl/%7Eksande/teaching/ims/lab9">Lab 9</a></li>
+<li style="display: inline;"><a href="http://staff.science.uva.nl/%7Eksande/teaching/ims/lab10">Lab 10</a></li>
+<li style="display: inline;"><a href="http://staff.science.uva.nl/%7Eksande/teaching/ims/lab11">Lab 11</a></li>
+<li style="display: inline;"><a href="http://staff.science.uva.nl/%7Eksande/teaching/ims/lab12">Lab 12</a></li>
+</ul>
+
+
+<p><i>
+In this lab we will work on object localisation. Object localisation
+is an application of the histogram backprojection technique we developed in the
+previous lab.  This is a good way to explore the uses of histograms further.</i>
+</p>
+
+<h2>More information on last week's assignment</h2>
+<p>I'll start with a quick recap of the previous lab. Most of you tried to use the
+built-in functions that Matlab provides to create a histogram of an image. Since
+the function <code>hist</code> is not suited for the task at hand (it takes
+1-dimensional input), this is not the way to go. You will have to write your own
+function to compute a histogram from an image.</p>
+
+<p>A histogram is a method of quantising the colours in the image. A colour in the (R,G,B)-space
+consists of three values R, G and B, and in the histogram, the correlation between these values
+have to be retained. Therefore, it is not good enough to generate three histograms of the separate
+colour channels (one for each color channel), but every (R,G,B)-triple will have to be "binned" as
+a whole. If the histogram would be as accurate as possible, for an (R,G,B)-image with pixel values
+ranging between 0 and 255, the resulting histogram contain 256x256x256 bins. However, this version
+is quite sensitive to noise, and huge in memory, so what is generally done is map the colours to
+a lower-dimensional histogram, e.g. a 16x16x16 histogram. You will have to write a function that
+determines the appropriate bin for a given color.
+</p><p>
+One final remark about last week involves the different colour representations you played with in
+the first lab session. Before creating a histogram, you could choose to convert the image
+(or the image of your model/object) to other colour representations. This will result in a
+histogram that has the same properties as the colour representation you used. For instance,
+converting the (R,G,B)-image to (r,g,b) will result in a representation of your target that
+is invariant to intensity-differences, since the (r,g,b)-space is invariant to differences
+in intensity.</p>
+<p>Two example histograms can be found <a href="http://staff.science.uva.nl/%7Eksande/teaching/ims/data/nemo1_hist.png">here</a> and <a href="http://staff.science.uva.nl/%7Eksande/teaching/ims/data/_nemo2_hist.png">here</a>. These figures are histograms of the two Nemo-images,
+created with 16 bins using the normalized-rgb color space.</p><p>
+</p><p>
+
+Also, <a href="http://staff.science.uva.nl/%7Eksande/teaching/ims/lab2">the previous lab</a> might have some interesting information.
+
+</p>
+<h2>Details on this week's assignment</h2>
+<p>Object segmentation is transforming an image, a matrix of pixel
+values, into a collection of objects
+with properties such as size, shape and position.  This is the first step into more meaningful image
+analysis such as object recognition.
+</p>
+
+<h3>Object Segmentation</h3>
+<p>
+The tutorial "Image Processing Toolbox: Example 2 -- Advanced Topics :: Getting
+Started: Example 2 -- Advanced Topics" in Matlab help shows some techniques to label
+objects in an image. </p>
+<p>The input in that example is a gray scale image, but for our purposes we use the result from the
+histogram back projection. If all went well, you assigned to every pixel in the image a
+"probability" that this pixel was part of the target. Hence, this probability-image can be seen
+as a gray-scale image, in which regions with higher values (e.g. areas that are lighter) should
+correspond with you target. After going through all the steps in the example,
+you'll end up with all objects in the image labelled.  Hopefully your target is one of the labelled
+objects.  Some morphological operations might be necessary to create a clear object and remove noise.
+If you do not locate your target in the image, remind the note of last week about weighting the
+histogram with a histogram of background objects. Also, see if other colour representations can
+improve your results.
+</p>
+<h3>Histogram distances</h3>
+<p>
+To check the result you get from the object detection and to maybe
+choose between several detected
+objects, you can compare the histograms of the target and the candidate
+objects. So you create a
+histogram for the candidate objects in exactly the same fashion as you
+did for the target. Now you
+need to compare the candidate and target histogram, in some meaningful
+way. The reader (available on Blackboard and for sale in paper form as
+well) discusses
+several methods.
+<!-- I will repeat two here:
+</p>
+<h3>Euclidean distance</h3>
+<p>
+The Euclidean distance between histograms calculates the following distance between all histogram
+bins: <code>(b1 - b2)^2</code>, then sums this over all bins and takes the square root.
+</p>
+<h3>Bhattacharyya distance</h3>
+<p>
+The Bhattacharyya distance is a measure to compare statistical distributions, something that our
+histograms represent. The Bhattacharyya distance is calculated as follows.<br>
+First the Bhattacharyya coefficient is determined:<br> <img src="Bhattacharyya.jpg"><br><br>
+then the Bhattacharyya distance is determined from this: <br><img src="BhDistance.jpg"><br>
+</p>
+<br><br>-->
+</p><p>
+So, for this week, you should:
+</p><ul>
+<li>Catch up with last week's assignment, since you will need the
+result of the histogram back projection for this week's assignment.
+</li><li>Follow the tutorial "Image Processing Toolbox: Example 2 -- Advanced Topics :: Getting
+Started: Example 2 -- Advanced Topics" with the histogram back projection as grey-value image to
+find the location of Nemo in the image.
+</li></ul>
+
+That's all I'll tell you right now, try to fill in the blanks to develop a robust object
+detection/localisation system!
+
+
+
+<br>
+<br>
+</div>
+</div>
+<script src="lab3_files/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-596261-4";
+urchinTracker();
+</script>
+</body></html>
