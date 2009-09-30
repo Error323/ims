@@ -16,10 +16,22 @@ function [x, y, r, e] = imsFindObject(I, Ho, d)
     r = floor(d/2);
     [Y,X,Z_] = size(I);
     J = zeros(size(I,1), size(I,2));
-    M = imsGaussFilter(d);
-    for i = r+1:5:(Y-r-1)
-        for j = r+1:5:(X-r-1)
-            F = I((i-r:i+r), (j-r:j+r), :);
+    Mask = imsGaussFilter(d);
+    for i = 1:10:Y
+        for j = 1:10:X
+			Ymin = max(i-r, 1);
+			Ymax = min(i+r, Y);
+			Xmin = max(j-r, 1);
+			Xmax = min(j+r, X);
+            F = I(Ymin:Ymax, Xmin:Xmax, :);
+			
+			Ymin = Ymin + r - i + 1;
+			Ymax = Ymax + r - i + 1;
+			Xmin = Xmin + r - j + 1;
+			Xmax = Xmax + r - j + 1;
+			
+			M = Mask(Ymin:Ymax, Xmin:Xmax);			
+			
             H = imsHistogram(F, M, size(Ho,1));
             J(i,j) = sum(sum((H - Ho).^2));
             if (J(i,j) < e)
