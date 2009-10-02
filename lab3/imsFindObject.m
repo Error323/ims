@@ -33,7 +33,8 @@ function [x, y, r, e] = imsFindObject(I, Ho, d)
 			M = Mask(Ymin:Ymax, Xmin:Xmax);			
 			
             H = imsHistogram(F, M, size(Ho,1));
-            J(i,j) = sum(sum((H - Ho).^2));
+            %J(i,j) = sum(sum((H - Ho).^2));
+            J(i,j) = imsBDistance(H, Ho);
             if (J(i,j) < e)
                 y = i;
                 x = j;
