@@ -1,0 +1,9 @@
+function K = imsKernel(H, aSize)
+
+	h = aSize(1) - 1;
+	w = aSize(2) - 1;
+	
+	[X, Y] = meshgrid(-h/2:h/2, -h/2:h/2m )
+	c = pi * H^2;
+	d = 2; % dimensions
+	x

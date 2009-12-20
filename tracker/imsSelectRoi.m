@@ -7,4 +7,5 @@ function [x, y, w, h] = imsSelectRoi()
 	y = round(pos(2));
 	w = round(pos(3));
 	h = round(pos(4));
+		
 end	    
