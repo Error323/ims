@@ -1,0 +1,5 @@
+global DEBUG BINS VIDEO_FRAMES;
+
+DEBUG = true;
+BINS = 32;
+VIDEO_FRAMES = {};
