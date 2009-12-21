@@ -1,16 +1,30 @@
 function q = imsMstCreateModel(imObject, h)
 
 	global BINS TARGET_SIZE;
-	
-	if (TARGET_SIZE == [])
-		TARGET_SIZE = size(imObject);
+
+	aSize = size(imObject);
+
+	if (TARGET_SIZE == 0)
+		TARGET_SIZE = aSize;
 	end
 	
-	h = max(size(imObject, 1), size(imObject, 2)) / max(TARGET_SIZE(1), TARGET_SIZE(2));
+	h = max(aSize(1), aSize(2)) / max(TARGET_SIZE(1), TARGET_SIZE(2));
 	
-	imKernel = imsMstKernel(pi * h^2);
+	imKernel = imsKernel(h, aSize);
 	
-	q = imsHistogram(imObject, imKernel, BINS)
+	imObject = imsNormalize(imObject);
 	
+	q = imsHistogram(imObject, imKernel, BINS);
+
+	h = (size(q, 1) - 1) * 4;
+	w = (size(q, 2) - 1) * 4;
+	img = imgNormalizedRgb(w, h);
+	
+	surface(q, ...
+		img, ...
+		'EdgeColor','black', ...
+		'FaceColor', 'texturemap', ...
+		'CDataMapping', 'direct');
+	view(-45,45);
 
 end

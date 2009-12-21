@@ -15,8 +15,5 @@ function q = imsMstCreateModel(imObject, h)
 	imObject = imsNormalize(imObject);
 	
 	q = imsHistogram(imObject, imKernel, BINS);
-	
-	mesh(q);
-	
 
 end

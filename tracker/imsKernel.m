@@ -11,6 +11,7 @@ function K = imsKernel(h, aSize)
 	
 	K = 1/2 * c^-1 * (d + 2) * (1 - X);
 	
-	K = K / sum(K(:));
+	K = (X <= 1) .* K;
 	
-	K = (X <=1) .* K;
+	K = K / sum(K(:));
+

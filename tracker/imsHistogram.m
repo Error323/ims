@@ -20,24 +20,21 @@ function H = imsHistogram(I, M, n)
     
     H = zeros(n);
     
-    R = int8(ceil(R .* n));
-    G = int8(ceil(G .* n));
+    R = ceil(R .* n);
+    G = ceil(G .* n);
 
-%	X = G * n - n + R;
+	X = (G - 1) .* n + R;
 	
-    for r = 1:n
-        for g = 1:n
+    for g = 1:n
+        for r = 1:n
 			if (r + g) > n + 1
 				continue
 			end
-            Sr = (R == r);
-            Sg = (G == g);
-            S = Sr & Sg;
-%			x = g * n - n + r;
-%			S = (X == x);
+			x = (g - 1) .* n + r;
+			S = (X == x);
             W = M(S);
-            H(r,g) = sum(W);
+            H(g, r) = sum(W);
         end
-    end
-    
+	end
+ 
 %    H = H / sum(H(:));

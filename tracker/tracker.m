@@ -6,8 +6,12 @@ function tracker(sVideo)
 	
 	imFirstFrame = imsLoadFrame(1);
 
-	imTarget = imsGetRoi(imFirstFrame);
+	[imTarget, y0] = imsGetRoi(imFirstFrame);
+	
+	min( size(imTarget, 1), size(imTarget, 2)); 
 		
-	q = imsMstTargetModel(imTarget);
+	q = imsMstCreateModel(imTarget);
 
+	imsShowHistogram(q);
+	
 end
