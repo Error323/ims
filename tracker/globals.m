@@ -9,6 +9,7 @@ global DEBUG BINS CACHE;
 DEBUG = true;	% Debug mode {false, true, 'IMAQ', 'TGSL'
 CACHE = true;	% Enable caching
 BINS = 32;		% Number of bins in the histogram. Note that the total number of bins is BINS^2.
+EPSILON = 1;
 
 
 % RUNTIME VARIABLES
