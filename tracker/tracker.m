@@ -15,6 +15,8 @@ function tracker(sVideo)
 	% Create a target model (i.e. a histogram)
 	q = imsMstCreateModel(imFrame, y0);
 	
+	imsShowHistogram(q);
+		
 	p0 = q;
 
 	for i = 2:VIDEO_FRAMES

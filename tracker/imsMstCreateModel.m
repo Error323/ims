@@ -23,8 +23,8 @@ function q = imsMstCreateModel(imFrame, y)
 	% Create the kernel
 	imKernel = imsKernel(aSize);
 
-	% Normalize the object image
-	imObject = imsNormalize(imObject);
+	% Convert to another color space (See also globals.m)
+	imObject = imsColorSpace(imObject);
 	
 	% Create the histogram
 	q = imsHistogram(imObject, imKernel, BINS);
