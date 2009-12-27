@@ -15,12 +15,14 @@ function K = imsKernel(aSize)
 	if (CACHE)
 		if (isempty(fieldnames(KERNELS)) && exist('cache/imsKernels.mat', 'file'))
 			load('cache/imsKernels.mat');
+			imsDebug('KRNL', [num2str(length(fieldnames(KERNELS))) ' kernels loaded from file.']);
 		end
 		sCacheIdx = ['K_' num2str(aSize(2)) 'x' num2str(aSize(1))];
-		if ismember(fieldnames(KERNELS), sCacheIdx)
+		if sum(ismember(fieldnames(KERNELS), sCacheIdx))
+			imsDebug('KRNL', ['Kernel ' num2str(aSize(2)) 'x' num2str(aSize(1)) ' loaded from cache.']);
 			K = KERNELS.(sCacheIdx);
 			return
-		end		
+		end
 	end
 
 	% The number of dimensions (2)
@@ -57,4 +59,6 @@ function K = imsKernel(aSize)
 		KERNELS.(sCacheIdx) = K;
 		save('cache/imsKernels.mat', 'KERNELS');
 	end
+	
+	imsDebug('KRNL', ['Kernel ' num2str(aSize(2)) 'x' num2str(aSize(1)) ' calculated.']);
 end

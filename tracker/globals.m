@@ -2,8 +2,9 @@
 global DEBUG BINS CACHE;
 
 % debug modes
-% IMAQ - Image Aquisition
-% TGSL - Target Selection
+% IMAQ - Image aquisition
+% TGSL - Target selection
+% KRNL - Kernel calculations
 
 DEBUG = true;	% Debug mode {false, true, 'IMAQ', 'TGSL'
 CACHE = true;	% Enable caching
