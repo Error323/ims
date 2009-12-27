@@ -24,15 +24,15 @@ function H = imsHistogram(I, M, n)
     M = M(M > 0);
 
 	% Initialize an empty histogram
-    H = zeros(n);
+    H = zeros(n^2, 1);
 
 	% Convert the values of R and G (0, 1) to indexes {0, ..., n}
-    R = ceil(R .* n);
-    G = ceil(G .* n);
+    R = max(ceil(R .* n), 1);
+    G = max(ceil(G .* n), 1);
 
 	% Convert the twodimensional index <R,G> into a one dimensional index
 	% X {0, ..., n^2}
-	X = (G - 1) .* n + R;
+	X = (R - 1) .* n + G;
 
 	% Calculate the number of pixels (histogram value) for each bin
 	% weighted by the weights of the mask M.
@@ -45,7 +45,7 @@ function H = imsHistogram(I, M, n)
 			end
 			
 			% Construct the one dimensional x index from r and g 
-			x = (g - 1) .* n + r;
+			x = (r - 1) .* n + g;
 			
 			% Select each index in X that equals x.
 			S = (X == x);
@@ -56,7 +56,8 @@ function H = imsHistogram(I, M, n)
 			
 			% Sum the values of W to form the histogram value for the
 			% current bin <r,g>
-            H(g, r) = sum(W);
-        end
+            H(x) = sum(W);
+		end
 	end
 end
+

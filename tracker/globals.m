@@ -12,7 +12,9 @@ BINS = 32;		% Number of bins in the histogram. Note that the total number of bin
 
 
 % RUNTIME VARIABLES
-global VIDEO_FRAMES KERNELS;
+global VIDEO_FRAMES VIDEO_FILES TARGET_SIZE KERNELS;
 
-VIDEO_FRAMES = {};		% A list of video frames (files)
-KERNELS = struct();			% Cached kernels
+VIDEO_FRAMES = 0;		% Number of video frames
+VIDEO_FILES = {};		% A list of video frames (files)
+TARGET_SIZE = [0 0];	% Target size (h w)
+KERNELS = struct();		% Cached kernels

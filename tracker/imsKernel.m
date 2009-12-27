@@ -1,6 +1,5 @@
 % imsKernel
-%	Construct a Baht. kernel of size aSize. Note that the values sum up to
-%	one.
+%	Construct a kernel of size aSize. Note that the values sum up to one.
 %
 % input:
 %	aSize	A vector [height, width]

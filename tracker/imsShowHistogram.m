@@ -6,6 +6,10 @@
 %
 function imsShowHistogram(H)
 
+	global BINS;
+	
+	H = reshape(H, BINS, []);
+
 	% Calculate the dimensions of the surface overlay.
 	h = (size(H, 1) - 1) * 4;
 	w = (size(H, 2) - 1) * 4;

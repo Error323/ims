@@ -6,19 +6,20 @@
 %
 function imsMstReadVideo(sVideo)
 
-	global VIDEO_FILES;
+	global VIDEO_FILES VIDEO_FRAMES;
 
 	aDir = dir(sVideo);
 	
 	VIDEO_FILES = {};
+	VIDEO_FRAMES = 0;
 	for i = 1:length(aDir);
 		oFile = aDir(i);
 		if (oFile.name(1) ~= '.')
-			j = length(VIDEO_FILES) + 1;
-			VIDEO_FILES{j} = [sVideo, '/', oFile.name];
+			VIDEO_FRAMES = VIDEO_FRAMES + 1;
+			VIDEO_FILES{VIDEO_FRAMES} = [sVideo, '/', oFile.name];
 		end
 	end
 	
-	imsDebug('IMAQ', [num2str(length(VIDEO_FILES)) ' frames listed']);
+	imsDebug('IMAQ', [num2str(VIDEO_FRAMES) ' frames listed']);
 	
 end
