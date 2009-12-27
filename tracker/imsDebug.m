@@ -13,7 +13,7 @@ function imsDebug(sCategory, sMessage)
 	global DEBUG;
 
 	if ((length(DEBUG) == 1 && DEBUG == true) || (length(sCategory) == 1 && sCategory == true) || strcmp(DEBUG, sCategory))
-		disp(sMessage);	
+		disp(['   - ' sMessage]);	
 	end
 	
 end
