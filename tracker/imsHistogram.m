@@ -1,40 +1,62 @@
-% imsHistogram() - construct a histogram for the r and g channel
+% imsHistogram
+%	Construct a histogram for the r and g channel of a NORMALIZED rgb of
+%	xyz image.
 %
-% INPUTS:
-%  - I, NORMALIZED (!!!) image
-%  - M, mask (gray values)
-%  - n, the histogram will contain n*n bins
+% input:
+%	I	NORMALIZED (!!!) image
+%	M	mask (gray values representing weights)
+%	n	the histogram will contain n*n bins
 %
-% OUTPUTS:
-%  - H, Histogram, a matrix of n*n values wich sum up to 1
+% output
+%	H	Histogram, a matrix of n*n values wich sum up to 1
 %
 
 function H = imsHistogram(I, M, n)
 
+	% Extract the red and green channels
     R = I(:,:,1);
     G = I(:,:,2);
-    
+
+	% Convert the channels to vectors containing only the pixels described
+	% by the mask
     R = R(M > 0);
     G = G(M > 0);
     M = M(M > 0);
-    
+
+	% Initialize an empty histogram
     H = zeros(n);
-    
+
+	% Convert the values of R and G (0, 1) to indexes {0, ..., n}
     R = ceil(R .* n);
     G = ceil(G .* n);
 
+	% Convert the twodimensional index <R,G> into a one dimensional index
+	% X {0, ..., n^2}
 	X = (G - 1) .* n + R;
-	
+
+	% Calculate the number of pixels (histogram value) for each bin
+	% weighted by the weights of the mask M.
     for g = 1:n
         for r = 1:n
+			
+			% Skip the values in a normalized space that do not exist.
 			if (r + g) > n + 1
 				continue
 			end
+			
+			% Construct the one dimensional x index from r and g 
 			x = (g - 1) .* n + r;
+			
+			% Select each index in X that equals x.
 			S = (X == x);
+			
+			% Create a weight matrix containing the pixels of the mask
+			% where X equals x.
             W = M(S);
+			
+			% Sum the values of W to form the histogram value for the
+			% current bin <r,g>
             H(g, r) = sum(W);
         end
 	end
- 
-%    H = H / sum(H(:));
+end

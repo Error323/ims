@@ -1,19 +1,26 @@
-function q = imsMstCreateModel(imObject, h)
+% imsMstCreateModel
+%	Create a model (i.e. a histogram) of an imaga containing an object.
+%
+% input:
+%  imObject		The image containing the object.
+%
+% output:
+%  q			The model/histogram.
+%
+function q = imsMstCreateModel(imObject)
 
-	global BINS TARGET_SIZE;
+	global BINS;
 
+	% Calculate the size of the current image
 	aSize = size(imObject);
+	
+	% Create the kernel
+	imKernel = imsKernel(aSize);
 
-	if (TARGET_SIZE == 0)
-		TARGET_SIZE = aSize;
-	end
-	
-	h = max(aSize(1), aSize(2)) / max(TARGET_SIZE(1), TARGET_SIZE(2));
-	
-	imKernel = imsKernel(h, aSize);
-	
+	% Normalize the object image
 	imObject = imsNormalize(imObject);
 	
+	% Create the histogram
 	q = imsHistogram(imObject, imKernel, BINS);
 
 end

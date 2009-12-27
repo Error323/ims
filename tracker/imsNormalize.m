@@ -1,12 +1,12 @@
-% imsNormalize() - Converts RGB to normalized rgb or XYZ to normalized xyz
+% imsNormalize
+%	Converts RGB to normalized rgb or XYZ to normalized xyz.
 %
-% INPUTS:
-%  - I, Unnormalized image
+% input:
+%  I	Unnormalized image.
 %
-% OUTPUTS:
-%  - I, normalized image
+% output:
+%  I	Normalized image.
 %
-
 function I = imsNormalize(I)
 
     % V, the sum of the channels for each pixel
