@@ -8,7 +8,8 @@ function W = imsMstWeights(I, y, Q, P)
 	yRange = round(y(1) - TARGET_SIZE(1) / 2:y(1) + TARGET_SIZE(1) / 2);
 	I = I(yRange, xRange, :);
 	
-	I = imsNormalize(I);
+	% Convert to another color space (See also globals.m)
+	I = imsColorSpace(I);
 	
 	% Extract the red and green channels
     R = I(:,:,1);

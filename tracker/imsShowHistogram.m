@@ -16,7 +16,7 @@ function imsShowHistogram(H)
 	
 	% Create the surface overlay (i.e. an image containing normalized rgb
 	% values).
-	img = imgNormalizedRgb(w, h);
+	img = imsSurface(w, h);
 	
 	% Plot the histogram surface.
 	surface(H, ...
