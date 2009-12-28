@@ -7,8 +7,23 @@ function tracker(sVideo, iSkipFrames)
 
 	if ~exist('iSkipFrames', 'var')
 		iSkipFrames = 1;
+	else
+		iSkipFrames = str2num(iSkipFrames);
 	end
 		
+	%% Statistics
+	stats = zeros(1, VIDEO_FRAMES / iSkipFrames);
+	if exist('cache/stats.mat', 'file')
+		load('cache/stats.mat');
+		stats(size(stats, 1) + 1, :) = 0;
+	end
+	
+	%% Video output
+	global COLOR_SPACE OUTPUT_VIDEO;
+	OUTPUT_VIDEO = avifile(['video/result_' COLOR_SPACE '.avi']);
+
+	%% Mean Shift
+
 	% Load the video files
 	imsReadVideo(sVideo);
 	
@@ -18,12 +33,6 @@ function tracker(sVideo, iSkipFrames)
 	
 	% Create a target model (i.e. a histogram)
 	q = imsMstCreateModel(imFrame, y0);
-	
-	stats = zeros(1, VIDEO_FRAMES / iSkipFrames);
-	if exist('cache/stats.mat', 'file')
-		load('cache/stats.mat');
-		stats(size(stats, 1) + 1, :) = 0;
-	end
 	
 	for i = iSkipFrames:iSkipFrames:VIDEO_FRAMES
 		
@@ -59,11 +68,15 @@ function tracker(sVideo, iSkipFrames)
 			end
 		end
 		
-		imsMstVisualize(imFrame, q, p0, y0, bC0);
+%		imsMstVisualize(imFrame, q, p0, y0, bC0);
+		imsMstVideo(imFrame, q, p0, y0, bC0);
 		stats(end, i / iSkipFrames) = bD1;
 	end
 
+	%% Statistics
 	save('cache/stats.mat', 'stats');
 	subplot(2, 3, [1 2 4 5]);
 	plot(stats');
+	%% Video output
+	OUTPUT_VIDEO = close(OUTPUT_VIDEO);
 end
