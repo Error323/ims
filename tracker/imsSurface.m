@@ -14,15 +14,15 @@ function I = imsSurface(w, h)
 	global COLOR_SPACE;
 	
 	switch COLOR_SPACE
-		case 'RG'
+		case 'RGB'
 			I = imsSurfRg(w, h);
 		case 'rg'
 			I = imsSurfNormalizedRg(w, h);
+		case 'HSV'
+			I = imsSurfHi(w, h);
 		case 'HS'
 			I = imsSurfHs(w, h);
-		case 'HI'
-			I = imsSurfHi(w, h);
-		case 'XY'
+		case 'XYZ'
 			I = imsSurfXy(w, h);
 		case 'xy'
 			I = imsSurfNormalizedXy(w, h);

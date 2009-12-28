@@ -1,4 +1,4 @@
-% SETTINGS
+	% SETTINGS
 global DEBUG BINS CACHE COLOR_SPACE;
 
 % debug modes
@@ -6,11 +6,11 @@ global DEBUG BINS CACHE COLOR_SPACE;
 % TGSL - Target selection
 % KRNL - Kernel calculations
 
-DEBUG = true;		% Debug mode {false, true, 'IMAQ', 'TGSL', 'KRNL'}
-CACHE = true;		% Enable caching
-BINS = 32;			% Number of bins in the histogram. Note that the total number of bins is BINS^2.
+DEBUG = true;			% Debug mode {false, true, 'IMAQ', 'TGSL', 'KRNL'}
+CACHE = true;			% Enable caching
+BINS = 1000;			% Approximate number of bins in the histogram.
 EPSILON = 1;
-COLOR_SPACE = 'rg';	% Color space {'RG', 'rg', 'HS', 'HI', 'XY', 'xy'}
+COLOR_SPACE = 'rg';	% Color space {'RGB', 'rg', 'HSV', 'HS', 'XY', 'xy'}
 
 % RUNTIME VARIABLES
 global VIDEO_FRAMES VIDEO_FILES TARGET_SIZE KERNELS;

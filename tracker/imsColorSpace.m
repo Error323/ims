@@ -1,4 +1,4 @@
-% imsColorspace
+% imsColorSpace
 %	Converts RGB to another colorspace (See also globals.m)
 %
 % input:
@@ -7,30 +7,29 @@
 % output:
 %  I	onverted image.
 %
-function I = imsColorspace(I)
+function I = imsColorSpace(I)
 
 	global COLOR_SPACE;
 	
 	switch COLOR_SPACE
-		case 'RG'
-			I = I(:,:,1:2);
+		case 'RGB'
+			I = I;
 		case 'rg'
 			I = imsCsNormalize(I);
 			I = I(:,:,1:2);
+		case 'HSV'
+			I = imsCsHsv(I);
 		case 'HS'
 			I = imsCsHsv(I);
 			I = I(:,:,1:2);
-		case 'HI'
-			I = imsCsHsv(I);
-			I = I(:,:,[1,3]);
-		case 'XY'
+		case 'XYZ'
 			I = imsCsXyz(I);
-			I = I(:,:,1:2);
 		case 'xy'
 			I = imsCsXyz(I);
 			I = imsCsNormalize(I);
 			I = I(:,:,1:2);
 	end
+	I = min(max(I, 0), 1); 
 end
 
 function I = imsCsNormalize(I)

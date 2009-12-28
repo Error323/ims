@@ -10,7 +10,7 @@
 %
 function q = imsMstCreateModel(imFrame, y)
 
-	global BINS TARGET_SIZE;
+	global TARGET_SIZE;
 
 	% Extract object from frame
 	xRange = round(y(2) - TARGET_SIZE(2) / 2:y(2) + TARGET_SIZE(2) / 2);
@@ -23,10 +23,7 @@ function q = imsMstCreateModel(imFrame, y)
 	% Create the kernel
 	imKernel = imsKernel(aSize);
 
-	% Convert to another color space (See also globals.m)
-	imObject = imsColorSpace(imObject);
-	
 	% Create the histogram
-	q = imsHistogram(imObject, imKernel, BINS);
+	q = imsHistogram(imObject, imKernel);
 
 end
