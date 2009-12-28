@@ -9,5 +9,9 @@ for i = 1:length(aFiles)
 	end
 end
 
+if exist('globals.mat', 'file')
+	delete('globals.mat');
+end
+	
 % Clear all global variables
 clear all;

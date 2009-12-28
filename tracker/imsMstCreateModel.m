@@ -13,8 +13,8 @@ function q = imsMstCreateModel(imFrame, y)
 	global TARGET_SIZE;
 
 	% Extract object from frame
-	xRange = round(y(2) - TARGET_SIZE(2) / 2:y(2) + TARGET_SIZE(2) / 2);
-	yRange = round(y(1) - TARGET_SIZE(1) / 2:y(1) + TARGET_SIZE(1) / 2);
+	xRange = round(y(2) - (TARGET_SIZE(2)-1) / 2:y(2) + (TARGET_SIZE(2)-1) / 2);
+	yRange = round(y(1) - (TARGET_SIZE(1)-1) / 2:y(1) + (TARGET_SIZE(1)-1) / 2);
 	imObject = imFrame(yRange, xRange, :);
 	
 	% Calculate the size of the current image

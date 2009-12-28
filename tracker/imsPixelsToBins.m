@@ -18,10 +18,6 @@ function [X, bins] = imsPixelsToBins(I, M)
 	% Dimensions
 	d = size(I, 3);
 
-	n = round(BINS^(1/d));
-	bins = n^d;
-	imsDebug('HIST', ['Calculating histogram of ' num2str(n) '^' num2str(d) ' = ' num2str(bins) ' ~ ' num2str(BINS) ' bins.']);
-
 	if exist('M', 'var')
 		% Create a multi dimensional mask
 		M = repmat(M, [1 1 d]);
@@ -34,12 +30,14 @@ function [X, bins] = imsPixelsToBins(I, M)
 	% reshape the image
 	I = reshape(I, [], d);
 			
-	% Convert the values (0, 1) to indexes {0, ..., n}
-    X = min(floor(I .* n), n-1);
+	% Convert the values (0, 1) to indexes {0, ..., BINS}
+    X = min(floor(I .* BINS), BINS-1);
 	
 	% Convert the d-dimensional index <C1,...,Cd> into a one dimensional index
-	D = n.^(d-1:-1:0);
+	D = BINS.^(d-1:-1:0);
 	X = X * D';
 
 	X = X + 1;
+	
+	bins = BINS^d;
 end

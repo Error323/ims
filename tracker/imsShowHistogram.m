@@ -4,17 +4,16 @@
 % input:
 %	H	A normalized rgb histogram.
 %
-function imsShowHistogram(H, d)
+function imsShowHistogram(H)
 
 	global BINS;
 		
-	n = round(BINS^(1/d));
-	H = reshape(H, n, n, []);
+	H = reshape(H, BINS, BINS, []);
 	H = sum(H, 3);
 
 	% Calculate the dimensions of the surface overlay.
-	h = (n - 1) * 4;
-	w = (n - 1) * 4;
+	h = (BINS - 1) * 4;
+	w = (BINS - 1) * 4;
 	
 	% Create the surface overlay (i.e. an image containing normalized rgb
 	% values).

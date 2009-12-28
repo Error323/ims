@@ -4,7 +4,6 @@ function imsStatsClose()
 
 	if ~isempty(STATS_FILE)
 		save(STATS_FILE, 'STATS');
-		figure;
 		plot(STATS');
 	end
 	
