@@ -10,7 +10,7 @@ global DEBUG BINS CACHE COLOR_SPACE;
 
 DEBUG = 'IMAQ';
 CACHE = true;			% Enable caching
-BINS = 16;				% Number of bins per dimension.
+BINS = 1000;			% Approximate number of bins per dimension.
 EPSILON = 1;
 COLOR_SPACE = 'rg';		% Color space {'RGB', 'rg', 'HSV', 'HS', 'XYZ', 'xy'}
 
@@ -35,6 +35,6 @@ STATS = [];
 
 
 % LOAD DYNAMIC GLOBALS
-if exist('globals.mat', 'file')
-	load('globals.mat');
+if exist('cache/globals.mat', 'file')
+	load('cache/globals.mat');
 end

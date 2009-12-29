@@ -6,14 +6,15 @@
 %
 function imsShowHistogram(H)
 
-	global BINS;
-		
-	H = reshape(H, BINS, BINS, []);
+	[bins, d] = imsGetBins();
+	n = bins^(1/d);
+	
+	H = reshape(H, n, n, []);
 	H = sum(H, 3);
 
 	% Calculate the dimensions of the surface overlay.
-	h = (BINS - 1) * 4;
-	w = (BINS - 1) * 4;
+	h = (n - 1) * 4;
+	w = (n - 1) * 4;
 	
 	% Create the surface overlay (i.e. an image containing normalized rgb
 	% values).

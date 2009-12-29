@@ -9,7 +9,8 @@ function testall()
 	DEBUG = {'TEST', 'STAT'};
 	
 	aVideos = {'earth' , {'cheetah'}; 'soccer', {'orange', 'white'}};
-	aBins = {4, 8, 16, 32};
+	aBins = {64, 729, 4096, 15625};
+	
 	aColorSpaces = {'RGB', 'rg', 'HSV', 'HS', 'XYZ', 'xy'};
 	
 	for v = 1:size(aVideos, 1)
@@ -33,7 +34,7 @@ function testall()
 					COLOR_SPACE	 = aColorSpaces{c};
 					RESULT_VIDEO = ['result/' sVideo '_' sRegion '_' num2str(BINS) '_' COLOR_SPACE '.avi'];
 					
-					save('globals.mat', '-regexp', '^[A-Z_]+$');
+					save('cache/globals.mat', '-regexp', '^[A-Z_]+$');
 
 					imsDebug('TEST', ['Starting test ' sVideo ':' sRegion ' (' num2str(BINS) ' bins, ' COLOR_SPACE ' space)']);
 

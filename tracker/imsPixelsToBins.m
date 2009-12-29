@@ -10,14 +10,12 @@
 %
 function [X, bins] = imsPixelsToBins(I, M)
 	
-	global BINS;
-	
 	% convert to another colors pace
 	I = imsColorSpace(I);
 
-	% Dimensions
-	d = size(I, 3);
-
+	[bins, d] = imsGetBins();
+	n = bins^(1/d);
+	
 	if exist('M', 'var')
 		% Create a multi dimensional mask
 		M = repmat(M, [1 1 d]);
@@ -30,14 +28,13 @@ function [X, bins] = imsPixelsToBins(I, M)
 	% reshape the image
 	I = reshape(I, [], d);
 			
-	% Convert the values (0, 1) to indexes {0, ..., BINS}
-    X = min(floor(I .* BINS), BINS-1);
+	% Convert the values (0, 1) to indexes {0, ..., n}
+    X = min(floor(I .* n), n-1);
 	
 	% Convert the d-dimensional index <C1,...,Cd> into a one dimensional index
-	D = BINS.^(d-1:-1:0);
+	D = n.^(d-1:-1:0);
 	X = X * D';
 
 	X = X + 1;
 	
-	bins = BINS^d;
 end
