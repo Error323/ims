@@ -14,7 +14,7 @@ function [X, bins] = imsPixelsToBins(I, M)
 	I = imsColorSpace(I);
 
 	[bins, d] = imsGetBins();
-	n = bins^(1/d);
+	n = round(bins^(1/d));
 	
 	if exist('M', 'var')
 		% Create a multi dimensional mask

@@ -14,6 +14,6 @@ function [bins, d] = imsGetBins()
 		n = n2;
 	end
 	
-	bins = n^d;
+	bins = round(n^d);
 
 end

@@ -7,7 +7,7 @@
 function imsShowHistogram(H)
 
 	[bins, d] = imsGetBins();
-	n = bins^(1/d);
+	n = round(bins^(1/d));
 	
 	H = reshape(H, n, n, []);
 	H = sum(H, 3);
