@@ -2,13 +2,30 @@
 
 \documentclass[11pt]{article}
 
+\usepackage{homework}
 \usepackage{graphicx}
+\usepackage{algorithm}
+\usepackage{algorithmic}
 \usepackage{amsmath, amsthm, amssymb}
 \usepackage{subfigure}
+\usepackage[english]{babel}
+
+% The report should be a description of your work during the lab sessions,
+% focussing on the mean shift tracker. You should describe what you did, what you
+% noticed and what you could have done different or could have improved. As you
+% implemented the tracker you noticed different behaviour if you changed parts of
+% the tracker, e.g. a different colour space or the number of bins in the
+% histogram. Hopefully these insights have improved your tracker. This is why it
+% is essential that you test the tracker also on a video of a domain other than
+% soccer (or any other sport on a green field). This other domain will show how
+% your implementation depends on the soccer domain. Observe how you can improve
+% your design and them describe how you implemented this change or, for lack of
+% time, describe how you would change your design. 
 
 \title{Intelligent Multimedia Systems \\ Mean Shift Tracker}
 
-\author{F. Huizinga [0418862], B. Stoeller [0426857] \\ \{folkerthuizinga,bstoeller\}@gmail.com}
+\author{F. Huizinga [0418862], B. Stoeller [0426857] \\
+      \{folkerthuizinga,bstoeller\}@gmail.com}
 
 \date{December 27, 2009}
 
@@ -16,11 +33,78 @@
 \maketitle
 
 \begin{abstract}
+This report describes the implementation and results of a mean shift tracker
+using the Epanechnikov kernel and various color space models. Furthermore we
+perform some analysis on the tracker and color models with the use of two
+videos within different domains.
 \end{abstract}
 
-\section*{Introduction}
-\section*{Implementation}
-\section*{Conclusion}
-\section*{Future Work}
+
+\section{Introduction}
+An object tracker consists of two major components, the \emph{Object Model} and
+the \emph{Tracking Algorithm}. The object model is represented using a
+histogram in some color space. The tracking algorithm is the Mean Shift
+Algorithm. This report compares six different color spaces to represent the
+Object Model and their performance is measured using two videos in different
+domains (sport and nature). The report is organized as follows.  Section 2
+describes the implementation of the algorithm. The experiments and results are
+shown in Section 3. Section 4 presents our conclusions, and finally possible
+improvements are shown in Section 5.
+
+
+\section{Implementation}
+For our implementation we used the Matlab programming language. We describe the
+implementation of the tracking algorithm and the object model seperatly.
+
+\subsection{Object Model}
+To represent our object model we implemented the following color space models:
+rgb, xyz, RGB, HSI and XYZ. We decided to use a fixed number of total bins
+(i.e. the number of bins is not affected by the number of dimensions). More
+precise, if $N$ is the total number of bins, then the number of bins $b$ for
+each dimension $i$ is $b_i = N^{1/d}$, where $d$ is the total number of
+dimensions.
+
+\subsection{Tracking Algorithm}
+Algorithm \ref{alg:mst} shows our implementation of the mean shift tracking
+algorithm.
+\begin{algorithm}
+	\caption{MeanShiftTracker($V$, $n$)}
+	\begin{algorithmic}[1]
+	\REQUIRE The video $V$ with $n$ frames
+	\STATE \dots
+	\medskip
+	\end{algorithmic}
+\label{alg:mst}
+\end{algorithm}
+
+
+\section{Experiments and Results}
+For our experiments we applied the tracker to two videos within different
+domains, see Figure \ref{fig:videos}. Our total number of bins was set to $N
+\approx 1000$, resulting in $b_i = 10$ for $d = 3$ and $b_i = 32$ for $d = 2$.
+\begin{figure}[!ht]
+\centering
+%\includegraphics[width=9cm]{img/videos}
+\caption{The left image shows the soccer domain where we track an orange
+player, and the right image shows a scene from Earth, where we track a cheetah
+chasing its prey.}
+\label{fig:videos}
+\end{figure}
+
+
+
+\section{Conclusion}
+
+
+\section{Future Work}
+A lot can be improved in our current implementation. Some of these improvements are:
+\begin{itemize}
+\item{\emph{Scale}, compute the Epanechnikov kernel for various scales and select the best scale for each frame using the Bhattacharyya distance.}
+\item{\emph{Model}, update the target model $q_u$ when the distance between candidate $p_u$ and $q_u$ is too large.}
+\item{\emph{Kalman}, improve the tracker by applying a Kalman filter to get (even) better approximations in future frames.}
+\item{\emph{Color}, on the manual selection of the object to track, one could perform some analysis to determine which color space is best suited for the target model. For example the color space model with the highest variance coul be used.}
+\item{\emph{Spatial}, divide the kernel into several parts to store spatial information for more discriminative models.}
+\end{itemize}
+Unfortunatly, due to time constraints we were not able to apply these kind of improvements.
 
 \end{document}
