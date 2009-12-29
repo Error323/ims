@@ -46,7 +46,7 @@ for v = 1:size(aVideos, 1)
 			for i = 1:length(aCsIdx)
 				plot(STATS(aCsIdx(i), :)', aColors{i});
 			end
-			title(['result/' sVideo '\_' sRegion ', ' num2str(iBins) ' bins']);
+			title([sVideo '\_' sRegion ', ' num2str(iBins) ' bins']);
 			xlabel('frame number');
 			ylabel('Bhatacharyya distance');
 			legend(aColorSpaces, 1);
@@ -54,11 +54,14 @@ for v = 1:size(aVideos, 1)
 
 		end
 		figure(figScreen);
+		sPlotFile = ['result/' sVideo '_' sRegion '.eps'];
+		imsDebug(true, ['Saving image: ' sPlotFile]);
+		saveas(figScreen, sPlotFile, 'epsc'); 
 		drawnow;
 	end
 end
 
-sVideoFile = 'result/earth_cheetah_32_rg.avi';
+sVideoFile = 'result/earth_cheetah_4096_rg.avi';
 imsDebug(true, ['Loading video: ' sVideoFile]);
 oMov = mmreader(sVideoFile);
 disp(oMov);
@@ -69,7 +72,7 @@ sFrameFile = 'result/earth_cheetah.png';
 imsDebug(true, ['Saving image: ' sFrameFile]);
 imwrite(imFrame1, sFrameFile);
 
-sVideoFile = 'result/soccer_orange_32_rg.avi';
+sVideoFile = 'result/soccer_orange_4096_rg.avi';
 imsDebug(true, ['Loading video: ' sVideoFile]);
 oMov = mmreader(sVideoFile);
 disp(oMov);
@@ -80,7 +83,7 @@ sFrameFile = 'result/soccer_orange.png';
 imsDebug(true, ['Saving image: ' sFrameFile]);
 imwrite(imFrame2, sFrameFile);
 
-sVideoFile = 'result/soccer_white_32_rg.avi';
+sVideoFile = 'result/soccer_white_4096_rg.avi';
 imsDebug(true, ['Loading video: ' sVideoFile]);
 oMov = mmreader(sVideoFile);
 disp(oMov);
