@@ -44,5 +44,6 @@ function imsVideoLoad(sVideo)
 		VIDEO_FRAMES = VIDEO.NumberOfFrames;
 		
 		imsDebug('IMAQ', ['Video file ' sVideo ' loaded, ' num2str(VIDEO_FRAMES) ' frames listed']);
+		disp(VIDEO);
 	end
 end
