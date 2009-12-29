@@ -1,8 +1,11 @@
 REPORT = report
 
 all:
-	latex $(REPORT).tex	# Build dvi
-	latex $(REPORT).tex	# Inserts reference indicators at points of citation
+	latex $(REPORT)
+	bibtex $(REPORT)
+	bibtex $(REPORT)
+	latex $(REPORT)	# Build dvi
+	latex $(REPORT)	# Inserts reference indicators at points of citation
 	dvipdf $(REPORT).dvi
 
 clean:

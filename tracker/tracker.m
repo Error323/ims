@@ -32,7 +32,7 @@ function tracker(sVideo)
 			y1 = y0 + imsMstNextLocation(W);
 			
 			if (isnan(sum(y1)))
-				imsDebug(true, 'Object disappeared from frame!');
+				imsDebug(true, ['Object lost, skipping frame ' num2str(i) '/' num2str(VIDEO_FRAMES)]);
 				break;
 			end
 
