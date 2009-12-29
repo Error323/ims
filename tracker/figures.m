@@ -2,9 +2,10 @@ clear all
 close all
 
 aVideos = {'earth' , {'cheetah'}; 'soccer', {'orange', 'white'}};
-aAxis = [0.6 3];
+%aAxis = [0.6 3];
 aBins = {64, 729, 4096, 15625};	
-aColorSpaces = {'RGB', 'rgb', 'HSV', 'XYZ', 'xyz'};
+aColorSpaces = {'RGB', 'rg', 'HSV', 'XYZ', 'xy'};
+aColorLabels = {'RGB', 'rgb', 'HSV', 'XYZ', 'xyz'};
 aCsIdx = [1, 2, 3, 5, 6];
 aColors = {'r', 'm', 'b', 'c','g'};
 
@@ -19,18 +20,34 @@ for v = 1:size(aVideos, 1)
 		cols = ceil(length(aBins) / rows);
 		for b = 1:length(aBins)
 			iBins = aBins{b};
-			sStatsFile = ['result/' sVideo '_' sRegion '_' num2str(iBins) '.mat'];
-			imsDebug(true, ['Loading statistics: ' sStatsFile]);
-			load(sStatsFile);
-
 			figSave = figure();
 			hold on;
+
+			figure(figScreen);
+			subplot(rows, cols, b);
+			hold on;
+			
 			for i = 1:length(aCsIdx)
-				plot(STATS(aCsIdx(i), :)', aColors{i});
+				sColorSpace = aColorSpaces{i};
+				sStatsFile = ['result/' sVideo '_' sRegion '_' num2str(iBins) '_' sColorSpace '.mat'];
+				imsDebug(true, ['Loading statistics: ' sStatsFile]);
+				load(sStatsFile);
+				load(['groundtruth/' imsStatsFile(sVideo, sRegion)]);
+
+				dist = sum((STATS - Y)^2, 2);
+				
+				figure(figSave);
+				plot(dist, aColors{i});
+
+				figure(figScreen);
+				plot(dist, aColors{i});
+
 			end
-			title([sVideo '\_' sRegion ', ' num2str(iBins) ' bins']);
+			
+%			axis([0 size(STATS, 2) 0 aAxis(v)]);
+			figure(figSave);
 			xlabel('frame number');
-			ylabel('Bhatacharyya distance');
+			ylabel('Squared distance');
 			legend(aColorSpaces, -1);
 			axis([0 size(STATS, 2) 0 aAxis(v)]);
 			drawnow;
@@ -38,19 +55,13 @@ for v = 1:size(aVideos, 1)
 			imsDebug(true, ['Saving image: ' sPlotFile]);
 			saveas(figSave, sPlotFile, 'epsc'); 
 			close(figSave);
-
-
+			
 			figure(figScreen);
-			subplot(rows, cols, b);
-			hold on;
-			for i = 1:length(aCsIdx)
-				plot(STATS(aCsIdx(i), :)', aColors{i});
-			end
+%			axis([0 size(STATS, 2) 0 aAxis(v)]);
 			title([sVideo '\_' sRegion ', ' num2str(iBins) ' bins']);
 			xlabel('frame number');
-			ylabel('Bhatacharyya distance');
+			ylabel('Squared distance');
 			legend(aColorSpaces, 1);
-			axis([0 size(STATS, 2) 0 aAxis(v)]);
 
 		end
 		figure(figScreen);
