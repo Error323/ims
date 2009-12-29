@@ -1,17 +1,20 @@
 function testall()
 
+	%% Preparation
 	cleanup;
 		
 	% Load default globals
 	globals;
-	
+
+	%% Configuration
 	VISUAL_OUTPUT = false;
 	DEBUG = {'TEST', 'STAT'};
 	
 	aVideos = {'earth' , {'cheetah'}; 'soccer', {'orange', 'white'}};
 	aBins = {64, 729, 4096, 15625};	
 	aColorSpaces = {'RGB', 'rg', 'HSV', 'HS', 'XYZ', 'xy'};
-	
+
+	%% Run tests	
 	for v = 1:size(aVideos, 1)
 		
 		sVideo = aVideos{v, 1};
