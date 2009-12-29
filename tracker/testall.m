@@ -9,8 +9,7 @@ function testall()
 	DEBUG = {'TEST', 'STAT'};
 	
 	aVideos = {'earth' , {'cheetah'}; 'soccer', {'orange', 'white'}};
-	aBins = {64, 729, 4096, 15625};
-	
+	aBins = {64, 729, 4096, 15625};	
 	aColorSpaces = {'RGB', 'rg', 'HSV', 'HS', 'XYZ', 'xy'};
 	
 	for v = 1:size(aVideos, 1)
