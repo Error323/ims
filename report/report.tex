@@ -51,6 +51,7 @@ report is organized as follows.  Section 2 describes the implementation of the
 algorithm. The experiments and results are shown in Section 3. Section 4
 presents our conclusions, and finally possible improvements are shown in
 Section 5.
+\newpage
 
 
 \section{Implementation}
@@ -66,13 +67,38 @@ for each dimension $i$ is $b_i = N^{1/d}$, where $d$ is the total number of
 dimensions. 
 
 \subsection{Tracking Algorithm}
-Algorithm \ref{alg:mst} shows our implementation of the mean shift tracking
-algorithm.
+Algorithm \ref{alg:mst} shows our toplevel implementation of the mean shift
+tracking algorithm, for the complete details we refer the reader to the
+enclosed (documented) sourcecode.
 \begin{algorithm}
 	\caption{MeanShiftTracker($V$, $n$)}
 	\begin{algorithmic}[1]
 	\REQUIRE The video $V$ with $n$ frames
-	\STATE \dots
+	\STATE $f_1 \leftarrow V[1]$ \COMMENT{Set the current frame}
+	\STATE $\mathbf{y_0} \leftarrow \mathcal{S}(f_1)$ \COMMENT{Select object, store location}
+	\STATE $\mathbf{q} \leftarrow \mathcal{M}(f_1, \mathbf{y_0})$ \COMMENT{Create object model}
+	\FOR{$i = 1$ to $n$}
+		\STATE $f_i \leftarrow V[i]$
+		\STATE $\mathbf{p_0} \leftarrow \mathcal{M}(f_i, \mathbf{y_0})$
+		\STATE $bc_0 \leftarrow \mathcal{B}(\mathbf{p_0}, \mathbf{q})$ \COMMENT{Compute Bhattacharyya coefficient}
+		\WHILE{true}
+			\STATE $\mathbf{W} \leftarrow \mathcal{W}(f_i, \mathbf{y_0}, \mathbf{q}, \mathbf{p_0})$ \COMMENT{Compute the weights matrix}
+			\STATE $\mathbf{y_1} \leftarrow \mathbf{y_0} + \mathcal{L}(\mathbf{W})$ \COMMENT{Compute the mean shift}
+			\STATE $\mathbf{p_1} \leftarrow \mathcal{M}(f_i, \mathbf{y_1})$
+			\STATE $bc_1 \leftarrow \mathcal{B}(\mathbf{p_1}, \mathbf{q})$
+			\WHILE{$bc_1 < bc_0$} 
+				\STATE $\mathbf{y_1} \leftarrow \frac{1}{2} \dot (\mathbf{y_0} + \mathbf{y_1})$ \COMMENT{Interpolate $\mathbf{y_1}$ if we shifted too far}
+				\STATE $\mathbf{p_1} \leftarrow \mathcal{M}(f_i, \mathbf{y_1})$
+				\STATE $bc_1 \leftarrow \mathcal{B}(\mathbf{p_1}, \mathbf{q})$
+			\ENDWHILE
+			\STATE $\mathbf{p_0} \leftarrow \mathbf{p_1}$
+			\STATE $\mathbf{y_0} \leftarrow \mathbf{y_1}$
+			\STATE $bc_0 \leftarrow bc_1$
+			\IF{$\| \mathbf{y_1} - \mathbf{y_0} \| < \epsilon$}
+				\STATE break \COMMENT{Break if locations are nearly equal}
+			\ENDIF
+		\ENDWHILE
+	\ENDFOR
 	\medskip
 	\end{algorithmic}
 \label{alg:mst}
@@ -80,24 +106,97 @@ algorithm.
 
 
 \section{Experiments and Results}
-For our experiments we applied the tracker to two videos within different
-domains, see Figure \ref{fig:videos}. Our total number of bins was set to $N
-\approx 1000$, resulting in $b_i = 10$ for $d = 3$ and $b_i = 32$ for $d = 2$.
+For our experiments we applied the tracker to videos within two different
+domains, nature and sports. Figure \ref{fig:videos} shows the tracker in action
+on both domains. 
 \begin{figure}[!ht]
 \centering
-%\includegraphics[width=9cm]{img/videos}
-\caption{The left image shows the sport domain where we track an orange soccer
-player, and the right image shows a scene from the movie Earth, where we track
+\subfigure[The sports domain, a soccer match.]{
+\includegraphics[height=5.0cm]{img/soccer}
+\label{fig:a}
+}
+\subfigure[The nature domain, a hunting cheetah.]{
+\includegraphics[height=5.0cm]{img/earth_cheetah_scene}
+\label{fig:b}
+}
+\caption{\ref{fig:a} shows the sport domain where we track an orange soccer
+player. \ref{fig:b} shows a scene from the movie Earth, where we track
 a cheetah chasing its prey.}
 \label{fig:videos}
 \end{figure}
+In both videos a distinctive object was tracked using the various color models
+and for each color model various histogram sizes, see Table \ref{table:bins}.
+\begin{table}[!ht]
+\centering
+\begin{tabular}{l|l|l}
+$N$     & $N^{1/2}$ & $N^{1/3}$\\\hline
+$64$    & $8$       & $4$\\\hline
+$729$   & $27$      & $9$\\\hline
+$4096$  & $64$      & $16$\\\hline
+$15625$ & $125$     & $25$\\
+\end{tabular}
+\caption{Histogram sizes.}
+\label{table:bins}
+\end{table}
+For an (somewhat) objective analysis of the various colormodels and various
+histogram sizes, we chose to manually tag the objects within the frame
+sequences of each video. Figure \ref{fig:cheetah} shows four graphs with the
+frame number on the $x$-axis and the euclidian distance between the tracker's
+output and our tagged data on the $y$-axis. Each of the four graphs corresponds
+to a certain total number of bins.
+\begin{figure}[!ht]
+\centering
+\subfigure[$64$ bins]{
+\includegraphics[height=6.0cm]{img/earth_cheetah_64}
+\label{fig:a}
+}
+\subfigure[$729$ bins]{
+\includegraphics[height=6.0cm]{img/earth_cheetah_729}
+\label{fig:b}
+}
+\\
+\subfigure[$4096$ bins]{
+\includegraphics[height=6.0cm]{img/earth_cheetah_4096}
+\label{fig:c}
+}
+\subfigure[$15625$ bins]{
+\includegraphics[height=6.0cm]{img/earth_cheetah_15625}
+\label{fig:d}
+}
+\caption{Each graph shows the performance of the six different colormodels for
+a number of bins on the cheetah movie.}
+\label{fig:cheetah}
+\end{figure}
 
+\begin{figure}[!ht]
+\centering
+\subfigure[$64$ bins]{
+\includegraphics[height=6.0cm]{img/soccer_orange_64}
+\label{fig:a}
+}
+\subfigure[$729$ bins]{
+\includegraphics[height=6.0cm]{img/soccer_orange_729}
+\label{fig:b}
+}
+\\
+\subfigure[$4096$ bins]{
+\includegraphics[height=6.0cm]{img/soccer_orange_4096}
+\label{fig:c}
+}
+\subfigure[$15625$ bins]{
+\includegraphics[height=6.0cm]{img/soccer_orange_15625}
+\label{fig:d}
+}
+\caption{Each graph shows the performance of the six different colormodels for
+a number of bins on the soccer movie.}
+\label{fig:soccer}
+\end{figure}
 
 \section{Conclusion}
 
 
 \section{Future Work}
-A lot can be improved in our current implementation. Some of these improvements
+A lot can be improved in the current implementation. Some of these improvements
 are:
 \begin{itemize}
 \item{\emph{Scale}, compute the Epanechnikov kernel for various scales and
