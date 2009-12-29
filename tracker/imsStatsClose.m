@@ -4,7 +4,7 @@ function imsStatsClose()
 
 	if ~isempty(STATS_FILE)
 		save(STATS_FILE, 'STATS');
-		plot(STATS');
+		plot(STATS(:, 2), STATS(:, 1));
 	end
 	
 	if ~isempty(RESULT_VIDEO)

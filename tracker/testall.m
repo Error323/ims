@@ -29,12 +29,12 @@ function testall()
 			for b = 1: length(aBins)
 
 				BINS       = aBins{b};
-				STATS_FILE = ['result/' sVideo '_' sRegion '_' num2str(BINS) '.mat'];
 
 				for c = 1:length(aColorSpaces)
 					
 					COLOR_SPACE	 = aColorSpaces{c};
 					RESULT_VIDEO = ['result/' sVideo '_' sRegion '_' num2str(BINS) '_' COLOR_SPACE '.avi'];
+					STATS_FILE = ['result/' sVideo '_' sRegion '_' num2str(BINS) '_' COLOR_SPACE '.mat'];
 					
 					save('cache/globals.mat', '-regexp', '^[A-Z_]+$');
 
