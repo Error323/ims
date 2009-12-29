@@ -27,7 +27,7 @@ function imFrame = imsVideoGetFrame(i)
 	elseif isa(VIDEO, 'cell')
 
 		% Extract the path of the i-th frame.
-		sFrame = VIDEO_FILES{i};
+		sFrame = VIDEO{i};
 
 		% Load the frame and convert it to doubles.
 		imFrame = imread(sFrame);	

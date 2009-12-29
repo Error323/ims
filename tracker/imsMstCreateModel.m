@@ -10,12 +10,17 @@
 %
 function q = imsMstCreateModel(imFrame, y)
 
-	global TARGET_SIZE;
+	global TARGET_SIZE COLOR_SPACE BINS;
 
 	% Extract object from frame
 	xRange = round(y(2) - (TARGET_SIZE(2)-1) / 2:y(2) + (TARGET_SIZE(2)-1) / 2);
 	yRange = round(y(1) - (TARGET_SIZE(1)-1) / 2:y(1) + (TARGET_SIZE(1)-1) / 2);
-	imObject = imFrame(yRange, xRange, :);
+	if (min(xRange) > 0 && max(xRange) <= size(imFrame, 2) && min(yRange) > 0 && max(yRange) <= size(imFrame, 1)) 
+		imObject = imFrame(yRange, xRange, :);
+	else
+		q = zeros(BINS^length(COLOR_SPACE), 1);
+		return;
+	end
 	
 	% Calculate the size of the current image
 	aSize = size(imObject);

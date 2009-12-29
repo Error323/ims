@@ -8,11 +8,11 @@ function testall()
 	VISUAL_OUTPUT = false;
 	DEBUG = {'TEST', 'STAT'};
 	
-	aVideos = {'soccer', {'orange', 'white'}; 'earth' , {'cheetah'}};
+	aVideos = {'earth' , {'cheetah'}; 'soccer', {'orange', 'white'}};
 	aBins = {4, 8, 16, 32};
 	aColorSpaces = {'RGB', 'rg', 'HSV', 'HS', 'XYZ', 'xy'};
-		
-	for v = 1:length(aVideos)
+	
+	for v = 1:size(aVideos, 1)
 		
 		sVideo = aVideos{v, 1};
 		

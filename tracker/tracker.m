@@ -10,7 +10,7 @@ function tracker(sVideo)
 
 	% Load the video files
 	imsVideoLoad(sVideo);
-	
+
 	% Get the first frame to select the target object
 	imFrame = imsVideoGetFrame(1);
 	y0 = imsGetRoi(imFrame);
@@ -30,6 +30,11 @@ function tracker(sVideo)
 			W = imsMstWeights(imFrame, y0, q, p0);
 
 			y1 = y0 + imsMstNextLocation(W);
+			
+			if (isnan(sum(y1)))
+				imsDebug(true, 'Object disappeared from frame!');
+				break;
+			end
 
 			p1 = imsMstCreateModel(imFrame, y1);
 
