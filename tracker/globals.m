@@ -2,6 +2,8 @@
 global DEBUG BINS CACHE COLOR_SPACE;
 
 % debug modes
+% false- display only the most important debug information
+% true - display any debug information
 % IMAQ - Image aquisition
 % TGSL - Target selection
 % KRNL - Kernel calculations
@@ -15,13 +17,14 @@ EPSILON = 1;
 COLOR_SPACE = 'rg';		% Color space {'RGB', 'rg', 'HSV', 'HS', 'XYZ', 'xy'}
 
 
-% FILES
+% OUTPUT
 global VISUAL_OUTPUT ROI_FILE RESULT_VIDEO STATS_FILE;
 
 VISUAL_OUTPUT = true;
 ROI_FILE = 'cache/roi.mat';
 RESULT_VIDEO = 'result/result.avi';
 STATS_FILE = 'result/stats.mat';
+
 
 
 % RUNTIME VARIABLES
