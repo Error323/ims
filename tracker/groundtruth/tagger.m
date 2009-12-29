@@ -6,9 +6,9 @@ function tagger(sVideo, sRegion)
 	
 	imsVideoLoad(sVideo);
 
-	ROI_FILE = '../roi/soccer_orange.mat';
+	sStatFile = imsStatsFile(sVideo, sRegion);
 
-	sStatFile = 'stat.mat';
+	ROI_FILE = ['../roi/' sStatFile];
 	
 	if exist(sStatFile, 'file')
 		load(sStatFile)
@@ -39,7 +39,7 @@ function tagger(sVideo, sRegion)
 			break;
 		end
 		
-		Y(i, :) = [y, x];
+		Y(i, :) = round([y, x]);
 		save(sStatFile, 'Y');
 		
 		clf;
