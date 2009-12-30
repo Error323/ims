@@ -11,6 +11,7 @@ function testall()
 	DEBUG = {'TEST', 'STAT'};
 	
 	aVideos = {'earth' , {'cheetah'}; 'soccer', {'orange', 'white'}};
+	aVideos = {'soccer', {'orange', 'white'}};
 	aBins = {64, 729, 4096, 15625};	
 	aColorSpaces = {'RGB', 'rg', 'HSV', 'HS', 'XYZ', 'xy'};
 

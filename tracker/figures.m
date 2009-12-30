@@ -2,7 +2,7 @@ clear all
 close all
 
 aVideos = {'earth' , {'cheetah'}; 'soccer', {'orange', 'white'}};
-%aAxis = [0.6 3];
+aAxis = [300 300];
 aBins = {64, 729, 4096, 15625};	
 aColorSpaces = {'RGB', 'rg', 'HSV', 'XYZ', 'xy'};
 aColorLabels = {'RGB', 'rgb', 'HSV', 'XYZ', 'xyz'};
@@ -32,9 +32,10 @@ for v = 1:size(aVideos, 1)
 				sStatsFile = ['result/' sVideo '_' sRegion '_' num2str(iBins) '_' sColorSpace '.mat'];
 				imsDebug(true, ['Loading statistics: ' sStatsFile]);
 				load(sStatsFile);
-				load(['groundtruth/' imsStatsFile(sVideo, sRegion)]);
+				sVideo
+				load(['groundtruth/' sVideo '_' sRegion '.mat']);
 
-				dist = sum((STATS - Y)^2, 2);
+				dist = sum((STATS - Y).^2, 2).^0.5;
 				
 				figure(figSave);
 				plot(dist, aColors{i});
@@ -44,12 +45,11 @@ for v = 1:size(aVideos, 1)
 
 			end
 			
-%			axis([0 size(STATS, 2) 0 aAxis(v)]);
 			figure(figSave);
 			xlabel('frame number');
 			ylabel('Squared distance');
 			legend(aColorSpaces, -1);
-			axis([0 size(STATS, 2) 0 aAxis(v)]);
+			axis([0 size(STATS, 1) 0 aAxis(v)]);
 			drawnow;
 			sPlotFile = ['result/' sVideo '_' sRegion '_' num2str(iBins) '.eps'];
 			imsDebug(true, ['Saving image: ' sPlotFile]);
@@ -57,7 +57,7 @@ for v = 1:size(aVideos, 1)
 			close(figSave);
 			
 			figure(figScreen);
-%			axis([0 size(STATS, 2) 0 aAxis(v)]);
+			axis([0 size(STATS, 1) 0 aAxis(v)]);
 			title([sVideo '\_' sRegion ', ' num2str(iBins) ' bins']);
 			xlabel('frame number');
 			ylabel('Squared distance');
