@@ -1,11 +1,11 @@
-% imsKernel
-%	Construct a kernel of size aSize. Note that the values sum up to one.
+% imsKernel - Construct a kernel of size aSize
+%   Note that the values sum up to one.
 %
-% input:
-%	aSize	A vector [height, width]
+% INPUT:
+%  - aSize, a vector [height, width]
 %
-% output
-%	K	An height * width image containing the kernel.
+% OUTPUT:
+%  - K, an height * width image containing the kernel
 %
 function K = imsKernel(aSize)
 

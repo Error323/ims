@@ -1,7 +1,11 @@
+% figures - Script to create graphs and example frames
+%
+
 clear all
 close all
 
-aVideos = {'earth' , {'cheetah'}; 'soccer', {'orange', 'white'}};
+%aVideos = {'earth' , {'cheetah'}; 'soccer', {'orange', 'white'}};
+aVideos = {'earth' , {'cheetah'}; 'soccer', {'orange'}};
 aAxis = [300 300];
 aBins = {64, 729, 4096, 15625};	
 aColorSpaces = {'RGB', 'rg', 'HSV', 'XYZ', 'xy'};

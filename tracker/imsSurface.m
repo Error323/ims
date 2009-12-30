@@ -1,13 +1,12 @@
-% imsSurface
-%	Creates an image of h times w pixels containing the colors of the
-%	user color space.
+% imsSurface - Creates an image of h * w pixels containing the colors of
+% the used color space.
 %
-% input:
-%	w	width
-%	h	height
+% INPUTS:
+%  - w, width
+%  - h, height
 %
-% output:
-%	I	An image of size h times w
+% OUTPUT:
+%  - I, An image of size h * w
 %
 function I = imsSurface(w, h)
 

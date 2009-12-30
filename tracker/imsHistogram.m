@@ -1,14 +1,12 @@
-% imsHistogram
-%	Construct a histogram for an image I.
+% imsHistogram - Construct a histogram for an image
 %
-% input:
-%	I	image
-%	M	mask (gray values representing weights)
+% INPUTS:
+%  - I, image
+%  - M, mask (gray values representing weights)
 %
-% output
-%	H	Histogram, a vector with +/- [bins] values which sum up to 1
+% OUTPUT:
+%  - H, histogram, a vector with +/- [bins] values which sum up to 1
 %
-
 function H = imsHistogram(I, M)
 
 	[X, bins] = imsPixelsToBins(I, M);

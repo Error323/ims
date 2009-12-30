@@ -1,11 +1,10 @@
-% imsVideoGetFrame
-%	Loads frame i from the global 'video stream' VIDEO_FILES.
+% imsVideoGetFrame - Loads frame i from the global 'video stream' VIDEO.
 %
-% input:
-%	i			Frame number
+% INPUT:
+%  - i, Frame number
 %
-% output
-%	imFrame		The i-th frame of the 'video stream'
+% OUTPUT:
+%  - imFrame, The i-th frame of the 'video stream'
 %
 function imFrame = imsVideoGetFrame(i)
 

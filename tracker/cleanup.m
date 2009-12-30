@@ -1,3 +1,6 @@
+% cleanup - Remove al files from the cache folder
+%
+
 % Close all figures
 close all;
 

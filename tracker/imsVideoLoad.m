@@ -1,8 +1,7 @@
-% imsVideoLoad
-%	Read a video (folder) and store it in the global variable VIDEO_FILES.
+% imsVideoLoad - Read a video and store it in the global variable VIDEO
 %
-% input:
-%	sVideo		Path to the video.
+% INPUT:
+%  - sVideo, Path to the video.
 %
 function imsVideoLoad(sVideo)
 

@@ -1,3 +1,12 @@
+% imsMstVisualize - Visualize the imidiate result
+%
+% INPUTS:
+%  - I, frame
+%  - q, target model
+%  - p, current model
+%  - y, location
+%  - bD, Bhattacharyya distance
+%
 function imsMstVisualize(I, q, p, y, bD)
 
 	global TARGET_SIZE;

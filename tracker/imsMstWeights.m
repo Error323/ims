@@ -1,4 +1,14 @@
-
+% imsMstWeights - Calculate the weights
+%
+% INPUT:
+%  - I, frame
+%  - y, position
+%  - Q, target model
+%  - P, current model
+%
+% OUTPUTS:
+%  - W, Weight matrix
+%
 function W = imsMstWeights(I, y, Q, P)
 
 	global TARGET_SIZE;
@@ -13,6 +23,7 @@ function W = imsMstWeights(I, y, Q, P)
 		return;
 	end
 	
+	% Get the index of each pixel
 	X = imsPixelsToBins(I);
 	X = reshape(X, size(I, 1), size(I, 2));
 	

@@ -1,11 +1,10 @@
-% imsColorSpace
-%	Converts RGB to another colorspace (See also globals.m)
+% imsColorSpace - Converts RGB to another colorspace (See also globals.m)
 %
-% input:
-%  I	Original image.
+% INPUT:
+%  - I, original image
 %
 % output:
-%  I	onverted image.
+%  - I, converted image
 %
 function I = imsColorSpace(I)
 

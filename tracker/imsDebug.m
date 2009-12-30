@@ -1,12 +1,11 @@
-
-% imsDebug
+% imsDebug - Debug function
 %	If the global variable DEBUG == [true] all debug messages are displayed.
 %	If DEBUG is the name of some category, only messages of that particular
 %	category and messages with [true] as category name are displayed.
 %
-% input:
-%	sCategory	The category of this debug message
-%	sMessageh	The debug message
+% INPUTS:
+%  - sCategory, the category of this debug message
+%  - sMessage, the debug message
 %
 function imsDebug(sCategory, sMessage)
 

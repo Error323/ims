@@ -1,3 +1,12 @@
+% imsCircle - Creates a black image containing a white circle
+%
+% INPUTS:
+%  - aSize, vector containing width and height
+%  - z, border size / thickness
+%
+% output:
+%  - I, converted image
+%
 function C = imsCircle(aSize, z)
 
 	% Outer circle
@@ -19,7 +28,7 @@ function C = imsCircle(aSize, z)
 
 	Cin = min(max(s - (X.^2 + Y.^2).^(1/2), 0), 1);
 
-	% Combined
+	% Combine both circles
 	C = Cout;
 	C(z+1:z+h, z+1:z+w) = C(z+1:z+h, z+1:z+w) - Cin;
 	

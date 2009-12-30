@@ -1,3 +1,7 @@
+% testall - Script to rus several tests
+%   The results are stored in the results folder
+%
+
 function testall()
 
 	%% Preparation
@@ -11,7 +15,6 @@ function testall()
 	DEBUG = {'TEST', 'STAT'};
 	
 	aVideos = {'earth' , {'cheetah'}; 'soccer', {'orange', 'white'}};
-	aVideos = {'soccer', {'orange', 'white'}};
 	aBins = {64, 729, 4096, 15625};	
 	aColorSpaces = {'RGB', 'rg', 'HSV', 'HS', 'XYZ', 'xy'};
 
@@ -24,12 +27,12 @@ function testall()
 		
 		for r = 1:length(aRegions)
 			
-			sRegion  = aRegions{r};
+			sRegion = aRegions{r};
 			ROI_FILE = ['roi/' sVideo '_' sRegion '.mat'];
 			
 			for b = 1: length(aBins)
 
-				BINS       = aBins{b};
+				BINS = aBins{b};
 
 				for c = 1:length(aColorSpaces)
 					

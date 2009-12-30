@@ -1,22 +1,22 @@
-% imsMstCreateModel
-%	Create a model (i.e. a histogram) of an imaga containing an object.
+% imsMstCreateModel - Create a model (i.e. a histogram) of an image
+% containing an object
 %
-% input:
-%	imFrame
-%	y
+% INPUTS:
+%  - I, frame
+%  - y, location
 %
-% output:
-%	q		The model/histogram.
+% OUTPUT:
+%	q, The model/histogram
 %
-function q = imsMstCreateModel(imFrame, y)
+function q = imsMstCreateModel(I, y)
 
 	global TARGET_SIZE COLOR_SPACE BINS;
 
 	% Extract object from frame
 	xRange = round(y(2) - (TARGET_SIZE(2)-1) / 2:y(2) + (TARGET_SIZE(2)-1) / 2);
 	yRange = round(y(1) - (TARGET_SIZE(1)-1) / 2:y(1) + (TARGET_SIZE(1)-1) / 2);
-	if (min(xRange) > 0 && max(xRange) <= size(imFrame, 2) && min(yRange) > 0 && max(yRange) <= size(imFrame, 1)) 
-		imObject = imFrame(yRange, xRange, :);
+	if (min(xRange) > 0 && max(xRange) <= size(I, 2) && min(yRange) > 0 && max(yRange) <= size(I, 1)) 
+		imObject = I(yRange, xRange, :);
 	else
 		q = zeros(BINS^length(COLOR_SPACE), 1);
 		return;

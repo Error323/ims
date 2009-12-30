@@ -1,3 +1,5 @@
+% imsStatsInit - Initialize all statistics and result functions
+%
 function imsStatsInit()
 
 	global STATS_FILE STATS RESULT_VIDEO;

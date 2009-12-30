@@ -1,4 +1,4 @@
-% imsBDistance(A, B) - Compute the Bhattacharyya distance
+% imsBDistance - Compute the Bhattacharyya distance
 %
 % INPUTS:
 %  - A, normalized vector A

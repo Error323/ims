@@ -1,12 +1,11 @@
-% imsPixelsToBins
-%	Return the a vector of bin indexes
+% imsPixelsToBins - Return the a vector of bin indexes
 %
-% input:
-%	I	image
-%	M	mask (gray values representing weights)
+% INPUTS:
+%  - I, image
+%  - M, mask (gray values representing weights)
 %
-% output
-%	X	Bin indexes
+% OUTPUT:
+%  - X, Bin indexes
 %
 function [X, bins] = imsPixelsToBins(I, M)
 	

@@ -1,11 +1,10 @@
-% imsSelectRoi
-%	Select the ROI (i.e. target object) by user input.
+% imsSelectRoi - Select the ROI (i.e. target object) by user input.
 %
-% output:
-%	x	left most x coordinate
-%	y	bottom most y coordinate
-%	w	width of the bounding box
-%	h	height of the bounding box
+% OUTPUTS:
+%  - x, left most x coordinate
+%  - y, bottom most y coordinate
+%  - w, width of the bounding box
+%  - h, height of the bounding box
 %
 function [x, y, w, h] = imsSelectRoi()
 

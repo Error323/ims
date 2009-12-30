@@ -1,3 +1,5 @@
+% imsStatsClose - Terminate all statistics and result functions
+%
 function imsStatsClose()
 
 	global STATS_FILE STATS RESULT_VIDEO;

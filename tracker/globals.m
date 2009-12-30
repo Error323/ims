@@ -1,14 +1,20 @@
-% SETTINGS
-global DEBUG BINS CACHE COLOR_SPACE;
+% globals - Settings file
+%	Note that these settings can be overloaded by globals.mat if it exists
+%	in the cache folder
+%
 
-% debug modes
-% false- display only the most important debug information
-% true - display any debug information
-% IMAQ - Image aquisition
-% TGSL - Target selection
-% KRNL - Kernel calculations
-% HIST - Histogram calculations
-% TEST - Test cycles
+% SETTINGS
+%
+% debug modes:
+%   false- display only the most important debug information
+%   true - display any debug information
+%   IMAQ - Image aquisition
+%   TGSL - Target selection
+%   KRNL - Kernel calculations
+%   HIST - Histogram calculations
+%   TEST - Test cycles
+
+global DEBUG BINS CACHE COLOR_SPACE;
 
 DEBUG = 'IMAQ';
 CACHE = true;			% Enable caching

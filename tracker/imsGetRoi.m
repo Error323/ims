@@ -1,12 +1,11 @@
-% imsGetRoi
-%	Select the ROI (i.e. target object) by user input, or by loading the
-%	data from a saved file in the cahe folder.
+% imsGetRoi - Select the ROI (i.e. target object) by user input, or by
+% loading the data from a saved file in the cahe folder.
 %
-% input:
-%	imImage		An image (typically the first frame of a video stream)
+% INPUT:
+%  - imImage, An image (typically the first frame of a video stream)
 %
-% output:
-%	y0			The coordinates (the center of the target object)
+% OUTPUT:
+%  - y0, The coordinates (the center of the target object)
 %
 function y0 = imsGetRoi(imImage)
 	

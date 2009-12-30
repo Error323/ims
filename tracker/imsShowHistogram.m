@@ -1,11 +1,14 @@
-% imsShowHistogram
-%	Graphical display of a normalized rgb histogram.
+% imsShowHistogram - Graphical display of a normalized rgb histogram.
+%   NOTE That 3D histograms are displayed as 2D histograms containing only
+%   the first two dimension. (i.e. all values in the 3rd dimension are
+%   summed.
 %
-% input:
-%	H	A normalized rgb histogram.
+% INPUT:
+%	- H, an histogram (i.e. a model)
 %
 function imsShowHistogram(H)
 
+	% Calculate number of bins per dimension
 	[bins, d] = imsGetBins();
 	n = round(bins^(1/d));
 	
