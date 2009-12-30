@@ -32,13 +32,12 @@ for v = 1:size(aVideos, 1)
 				sStatsFile = ['result/' sVideo '_' sRegion '_' num2str(iBins) '_' sColorSpace '.mat'];
 				imsDebug(true, ['Loading statistics: ' sStatsFile]);
 				load(sStatsFile);
-				sVideo
 				load(['groundtruth/' sVideo '_' sRegion '.mat']);
 
 				dist = sum((STATS - Y).^2, 2).^0.5;
 				
 				figure(figSave);
-				plot(dist, aColors{i});
+				plot(dist, aColors{i}, 'LineWidth', 2);
 
 				figure(figScreen);
 				plot(dist, aColors{i});
@@ -47,8 +46,8 @@ for v = 1:size(aVideos, 1)
 			
 			figure(figSave);
 			xlabel('frame number');
-			ylabel('Squared distance');
-			legend(aColorSpaces, -1);
+			ylabel('Euclidean distance');
+			legend(aColorLabels, 1);
 			axis([0 size(STATS, 1) 0 aAxis(v)]);
 			drawnow;
 			sPlotFile = ['result/' sVideo '_' sRegion '_' num2str(iBins) '.eps'];
@@ -60,8 +59,8 @@ for v = 1:size(aVideos, 1)
 			axis([0 size(STATS, 1) 0 aAxis(v)]);
 			title([sVideo '\_' sRegion ', ' num2str(iBins) ' bins']);
 			xlabel('frame number');
-			ylabel('Squared distance');
-			legend(aColorSpaces, 1);
+			ylabel('Euclidean distance');
+			legend(aColorLabels, 1);
 
 		end
 		figure(figScreen);
