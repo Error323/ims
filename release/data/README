@@ -1,0 +1,16 @@
+You can put video files or folders in this data folder.
+
+e.g. our directory listing was:
+
+    ims
+    |-- data
+    |   |-- earth.avi
+    |   |-- soccer
+    |       |-- Frame0085.png
+    |       |-- ...
+    |       |-- Frame0285.png
+    |
+    |-- tracker
+    |   |-- ...
+    |
+    |-- README
