@@ -25,7 +25,7 @@
 \title{Intelligent Multimedia Systems \\ Mean Shift Tracker}
 
 \author{F. Huizinga [0418862], B. Stoeller [0426857] \\
-      \{folkerthuizinga,bstoeller\}@gmail.com}
+      \{folkerthuizinga,bramstoeller\}@gmail.com}
 
 \date{December 27, 2009}
 
@@ -50,8 +50,7 @@ is measured using two videos in different domains (sport and nature). The
 report is organized as follows.  Section 2 describes the implementation of the
 algorithm. The experiments and results are shown in Section 3. Section 4
 presents our conclusions, and finally possible improvements are shown in
-Section 5.
-\newpage
+Section 5. \newpage
 
 
 \section{Implementation}
@@ -75,8 +74,8 @@ enclosed (documented) sourcecode.
 	\begin{algorithmic}[1]
 	\REQUIRE The video $V$ with $n$ frames
 	\STATE $f_1 \leftarrow V[1]$ \COMMENT{Set the current frame}
-	\STATE $\mathbf{y_0} \leftarrow \mathcal{S}(f_1)$ \COMMENT{Select object, store location}
-	\STATE $\mathbf{q} \leftarrow \mathcal{M}(f_1, \mathbf{y_0})$ \COMMENT{Create object model}
+	\STATE $\mathbf{y_0} \leftarrow \mathcal{S}(f_1)$ \COMMENT{Select target, store location}
+	\STATE $\mathbf{q} \leftarrow \mathcal{M}(f_1, \mathbf{y_0})$ \COMMENT{Create the target model}
 	\FOR{$i = 1$ to $n$}
 		\STATE $f_i \leftarrow V[i]$
 		\STATE $\mathbf{p_0} \leftarrow \mathcal{M}(f_i, \mathbf{y_0})$
@@ -120,8 +119,8 @@ on both domains.
 \label{fig:b}
 }
 \caption{\ref{fig:a} shows the sport domain where we track an orange soccer
-player. \ref{fig:b} shows a scene from the movie Earth, where we track
-a cheetah chasing its prey.}
+player on the left. \ref{fig:b} shows a scene from the movie Earth, where we
+track the head of a cheetah chasing its prey.}
 \label{fig:videos}
 \end{figure}
 In both videos a distinctive object was tracked using the various color models
@@ -140,10 +139,15 @@ $15625$ & $125$     & $25$\\
 \end{table}
 For an (somewhat) objective analysis of the various colormodels and various
 histogram sizes, we chose to manually tag the objects within the frame
-sequences of each video. Figure \ref{fig:cheetah} shows four graphs with the
-frame number on the $x$-axis and the euclidian distance between the tracker's
-output and our tagged data on the $y$-axis. Each of the four graphs corresponds
-to a certain total number of bins.
+sequences of each video. Figures \ref{fig:cheetah} and \ref{fig:soccer} show
+our final results for the tracking of the cheetah's head and orange soccer
+player respectively.  
+Both figures show four graphs with the frame number on the $x$-axis and the
+euclidian distance, between the tracker's output and our labelled data, on the
+$y$-axis. Each of the four graphs corresponds to a certain total number of
+bins. From these results we can see that the $rgb$ model is the only model that
+doesn't fail in all of the cases. This indicates that the $rgb$ colormodel is a
+robust one and would indeed be our choice for object tracking.
 \begin{figure}[!ht]
 \centering
 \subfigure[$64$ bins]{
@@ -164,7 +168,11 @@ to a certain total number of bins.
 \label{fig:d}
 }
 \caption{Each graph shows the performance of the six different colormodels for
-a number of bins on the cheetah movie.}
+a number of bins on the cheetah movie when tracking the cheetah's head.
+\ref{fig:a} shows that several colormodels have completely lost track,
+indicating that $64$ is not enough. In \ref{fig:b} just the $xyz$ model failed.
+Both \ref{fig:c} and \ref{fig:d} all colormodels show good performance.
+Indicating that the more bins used, the better the model becomes.}
 \label{fig:cheetah}
 \end{figure}
 
@@ -188,11 +196,25 @@ a number of bins on the cheetah movie.}
 \label{fig:d}
 }
 \caption{Each graph shows the performance of the six different colormodels for
-a number of bins on the soccer movie.}
+a number of bins on the soccer movie when tracking the orange player. All four
+graphs show a very distinctive pattern on the colormodels that lost track, this
+is the result of occlusion caused by a white player. The white player walks in
+front of the orange target and pushes the model away at which point it finds a
+new orange player and starts tracking him.}
 \label{fig:soccer}
 \end{figure}
 
-\section{Conclusion}
+\newpage
+\section{Conclusions}
+This report introduced an implementation of the mean shift tracking algorithm
+together with various colormodels applied to videos from two different domains.
+From the results we conclude that a significant histogramsize should be chosen
+to represent a model for robust tracking. An insufficient amount of bins
+overgeneralizes the model, at which point the tracker loses its target as
+target and background are (according to the model) indistinguishable.
+Furthermore the best colormodel, according to our results, is the normalized
+$rgb$ model. That is, the $rgb$ colormodel had the best overall performance across
+the domains and various histogramsizes.
 
 
 \section{Future Work}
@@ -201,8 +223,6 @@ are:
 \begin{itemize}
 \item{\emph{Scale}, compute the Epanechnikov kernel for various scales and
 select the best scale for each frame using the Bhattacharyya distance.}
-\item{\emph{Model}, update the target model $q_u$ when the distance between
-candidate $p_u$ and $q_u$ is too large.}
 \item{\emph{Kalman}, improve the tracker by applying a Kalman filter to get
 (even) better approximations in future frames.}
 \item{\emph{Color}, on the manual selection of the object to track, one could
