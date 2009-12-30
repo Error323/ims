@@ -46,7 +46,7 @@ An object tracker consists of two major components, the \emph{Object Model} and
 the \emph{Tracking Algorithm}. The object model is represented using a
 histogram in some color space. The tracking algorithm is the Mean Shift
 Algorithm~\cite{kernel-basedobject, real-timetracking}. This report compares
-six different color spaces to represent the Object Model and their performance
+five different color spaces to represent the Object Model and their performance
 is measured using two videos in different domains (sport and nature). The
 report is organized as follows.  Section 2 describes the implementation of the
 algorithm. The experiments and results are shown in Section 3. Section 4
@@ -60,7 +60,7 @@ implementation of the tracking algorithm and the object model seperatly.
 
 \subsection{Object Model}
 The object model is represented as a 2D or 3D histogram on the following color
-spaces: $rgb$, $xyz$, $RGB$, $HSI$ and $XYZ$. We decided to use a fixed number
+spaces: $rgb$, $xyz$, $RGB$, $HSV$ and $XYZ$. We decided to use a fixed number
 of total bins (i.e. the number of bins is not affected by the number of
 dimensions).  More precise, if $N$ is the total number of bins, then the number
 of bins $b$ for each dimension $i$ is $b_i = N^{1/d}$, where $d$ is the total
@@ -140,7 +140,7 @@ $15625$ & $125$     & $25$\\
 \label{table:bins}
 \end{table}
 For an (somewhat) objective analysis of the various color models and various
-histogram sizes, we chose to manually tag the objects within the frame
+histogram sizes, we chose to manually tag the target objects within the frame
 sequences of each video. Figures \ref{fig:cheetah} and \ref{fig:soccer} show
 our final results for the tracking of the cheetah's head and orange soccer
 player respectively.  
@@ -169,7 +169,7 @@ robust one and would indeed be our choice for object tracking.
 \includegraphics[height=6.0cm]{img/earth_cheetah_15625}
 \label{fig:2d}
 }
-\caption{Each graph shows the performance of the six different color models for
+\caption{Each graph shows the performance of the five different color models for
 a number of bins on the cheetah movie when tracking the cheetah's head.
 \ref{fig:2a} shows that several color models have completely lost track,
 indicating that $64$ is not enough. In \ref{fig:2b} just the $xyz$ model failed.
@@ -197,12 +197,12 @@ Indicating that the more bins used, the better the model becomes.}
 \includegraphics[height=6.0cm]{img/soccer_orange_15625}
 \label{fig:3d}
 }
-\caption{Each graph shows the performance of the six different color models for
-a number of bins on the soccer movie when tracking the orange player. All four
-graphs show a very distinctive pattern on the color models that lost track, this
-is the result of occlusion caused by a white player. The white player walks in
-front of the orange target and pushes the model away at which point it finds a
-new orange player and starts tracking him.}
+\caption{Each graph shows the performance of the five different color models
+for a number of bins on the soccer movie when tracking the orange player. All
+four graphs show a very distinctive pattern on the color models that lost
+track, this is the result of occlusion caused by a white player. The white
+player walks in front of the orange player (the target) and pushes the model
+away at which point it finds a new orange player and starts tracking him.}
 \label{fig:soccer}
 \end{figure}
 
@@ -228,7 +228,7 @@ select the best scale for each frame using the Bhattacharyya distance.}
 (even) better approximations in future frames.}
 \item{\emph{Color}, on the manual selection of the object to track, one could
 perform some analysis to determine which color space is best suited for the
-target model. For example the color space model with the highest variance coul
+target model. For example the color space model with the highest variance could
 be used.}
 \item{\emph{Spatial}, divide the kernel into several parts to store spatial
 information for more discriminative models.}
