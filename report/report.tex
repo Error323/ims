@@ -114,14 +114,14 @@ on both domains.
 \centering
 \subfigure[The sports domain, a soccer match.]{
 \includegraphics[height=5.0cm]{img/soccer}
-\label{fig:a}
+\label{fig:1a}
 }
 \subfigure[The nature domain, a hunting cheetah.]{
 \includegraphics[height=5.0cm]{img/earth_cheetah_scene}
-\label{fig:b}
+\label{fig:1b}
 }
-\caption{\ref{fig:a} shows the sport domain where we track an orange soccer
-player on the left. \ref{fig:b} shows a scene from the movie Earth, where we
+\caption{\ref{fig:1a} shows the sport domain where we track an orange soccer
+player on the left. \ref{fig:1b} shows a scene from the movie Earth, where we
 track the head of a cheetah chasing its prey.}
 \label{fig:videos}
 \end{figure}
@@ -154,26 +154,26 @@ robust one and would indeed be our choice for object tracking.
 \centering
 \subfigure[$64$ bins]{
 \includegraphics[height=6.0cm]{img/earth_cheetah_64}
-\label{fig:a}
+\label{fig:2a}
 }
 \subfigure[$729$ bins]{
 \includegraphics[height=6.0cm]{img/earth_cheetah_729}
-\label{fig:b}
+\label{fig:2b}
 }
 \\
 \subfigure[$4096$ bins]{
 \includegraphics[height=6.0cm]{img/earth_cheetah_4096}
-\label{fig:c}
+\label{fig:2c}
 }
 \subfigure[$15625$ bins]{
 \includegraphics[height=6.0cm]{img/earth_cheetah_15625}
-\label{fig:d}
+\label{fig:2d}
 }
 \caption{Each graph shows the performance of the six different color models for
 a number of bins on the cheetah movie when tracking the cheetah's head.
-\ref{fig:a} shows that several color models have completely lost track,
-indicating that $64$ is not enough. In \ref{fig:b} just the $xyz$ model failed.
-Both \ref{fig:c} and \ref{fig:d} all color models show good performance.
+\ref{fig:2a} shows that several color models have completely lost track,
+indicating that $64$ is not enough. In \ref{fig:2b} just the $xyz$ model failed.
+Both \ref{fig:2c} and \ref{fig:2d} all color models show good performance.
 Indicating that the more bins used, the better the model becomes.}
 \label{fig:cheetah}
 \end{figure}
@@ -182,20 +182,20 @@ Indicating that the more bins used, the better the model becomes.}
 \centering
 \subfigure[$64$ bins]{
 \includegraphics[height=6.0cm]{img/soccer_orange_64}
-\label{fig:a}
+\label{fig:3a}
 }
 \subfigure[$729$ bins]{
 \includegraphics[height=6.0cm]{img/soccer_orange_729}
-\label{fig:b}
+\label{fig:3b}
 }
 \\
 \subfigure[$4096$ bins]{
 \includegraphics[height=6.0cm]{img/soccer_orange_4096}
-\label{fig:c}
+\label{fig:3c}
 }
 \subfigure[$15625$ bins]{
 \includegraphics[height=6.0cm]{img/soccer_orange_15625}
-\label{fig:d}
+\label{fig:3d}
 }
 \caption{Each graph shows the performance of the six different color models for
 a number of bins on the soccer movie when tracking the orange player. All four
