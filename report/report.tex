@@ -51,7 +51,7 @@ is measured using two videos in different domains (sport and nature). The
 report is organized as follows.  Section \ref{sec:implementation} describes the implementation of the
 algorithm. The experiments and results are shown in Section \ref{sec:results}. Section \ref{sec:conclusion}
 presents our conclusions, and finally possible improvements are shown in
-Section \ref{sec:future}. \newpage
+Section \ref{sec:future}.
 
 
 \section{Implementation} \label{sec:implementation}
@@ -105,12 +105,11 @@ documented sourcecode\footnote{The sourcecode can be found at http://github.com/
 \end{algorithm}
 
 
-\newpage
 \section{Experiments and Results} \label{sec:results}
 For our experiments we applied the tracker to videos within two different
 domains, nature and sports. Figure \ref{fig:videos} shows the tracker in action
 on both domains. 
-\begin{figure}[!ht]
+\begin{figure}
 \centering
 \subfigure[The sports domain, a soccer match.]{
 \includegraphics[height=5.0cm]{img/soccer}
@@ -125,9 +124,7 @@ player on the left. \ref{fig:1b} shows a scene from the movie Earth, where we
 track the head of a cheetah chasing its prey.}
 \label{fig:videos}
 \end{figure}
-In both videos a distinctive object was tracked using the various color models
-and for each color model various histogram sizes, see Table \ref{table:bins}.
-\begin{table}[!ht]
+\begin{table}
 \centering
 \begin{tabular}{l|l|l}
 $N$     & $N^{1/2}$ & $N^{1/3}$\\\hline
@@ -139,46 +136,21 @@ $15625$ & $125$     & $25$\\
 \caption{Histogram sizes.}
 \label{table:bins}
 \end{table}
+In both videos a distinctive object was tracked using the various color models
+and for each color model various histogram sizes, see Table \ref{table:bins}.
+
 For an (somewhat) objective analysis of the various color models and various
 histogram sizes, we chose to manually tag the target objects within the frame
-sequences of each video. Figures \ref{fig:cheetah} and \ref{fig:soccer} show
-our final results for the tracking of the cheetah's head and orange soccer
-player respectively.  
-Both figures show four graphs with the frame number on the $x$-axis and the
+sequences of each video. Figures \ref{fig:soccer} and \ref{fig:cheetah} show
+our final results for the tracking of the orange soccer player and the
+cheetah's head respectively.  Both figures show four graphs with the frame
+number on the $x$-axis and the
 euclidian distance, between the tracker's output and our labelled data, on the
 $y$-axis. Each of the four graphs corresponds to a certain total number of
 bins. From these results we can see that the $rgb$ model is the only model that
 doesn't fail in all of the cases. This indicates that the $rgb$ color model is a
 robust one and would indeed be our choice for object tracking.
-\begin{figure}[!ht]
-\centering
-\subfigure[$64$ bins]{
-\includegraphics[height=6.0cm]{img/earth_cheetah_64}
-\label{fig:2a}
-}
-\subfigure[$729$ bins]{
-\includegraphics[height=6.0cm]{img/earth_cheetah_729}
-\label{fig:2b}
-}
-\\
-\subfigure[$4096$ bins]{
-\includegraphics[height=6.0cm]{img/earth_cheetah_4096}
-\label{fig:2c}
-}
-\subfigure[$15625$ bins]{
-\includegraphics[height=6.0cm]{img/earth_cheetah_15625}
-\label{fig:2d}
-}
-\caption{Each graph shows the performance of the five different color models for
-a number of bins on the cheetah movie when tracking the cheetah's head.
-\ref{fig:2a} shows that several color models have completely lost track,
-indicating that $64$ is not enough. In \ref{fig:2b} just the $xyz$ model failed.
-Both \ref{fig:2c} and \ref{fig:2d} all color models show good performance.
-Indicating that the more bins used, the better the model becomes.}
-\label{fig:cheetah}
-\end{figure}
-
-\begin{figure}[!ht]
+\begin{figure}
 \centering
 \subfigure[$64$ bins]{
 \includegraphics[height=6.0cm]{img/soccer_orange_64}
@@ -206,18 +178,45 @@ away at which point it finds a new orange player and starts tracking him.}
 \label{fig:soccer}
 \end{figure}
 
+\begin{figure}
+\centering
+\subfigure[$64$ bins]{
+\includegraphics[height=6.0cm]{img/earth_cheetah_64}
+\label{fig:2a}
+}
+\subfigure[$729$ bins]{
+\includegraphics[height=6.0cm]{img/earth_cheetah_729}
+\label{fig:2b}
+}
+\\
+\subfigure[$4096$ bins]{
+\includegraphics[height=6.0cm]{img/earth_cheetah_4096}
+\label{fig:2c}
+}
+\subfigure[$15625$ bins]{
+\includegraphics[height=6.0cm]{img/earth_cheetah_15625}
+\label{fig:2d}
+}
+\caption{Each graph shows the performance of the five different color models for
+a number of bins on the cheetah movie when tracking the cheetah's head.
+\ref{fig:2a} shows that several color models have completely lost track,
+indicating that $64$ is not enough. In \ref{fig:2b} just the $xyz$ model failed.
+Both \ref{fig:2c} and \ref{fig:2d} all color models show good performance.
+Indicating that the more bins used, the better the model becomes.}
+\label{fig:cheetah}
+\end{figure}
+
 \section{Conclusions} \label{sec:conclusion}
 This report introduced an implementation of the mean shift tracking algorithm
 together with various color models applied to videos from two different domains.
-From the results we conclude that a significant histogramsize should be chosen
+From the results we conclude that a significant histogram size should be chosen
 to represent a model for robust tracking. An insufficient amount of bins
 overgeneralizes the model, at which point the tracker loses its target as
 target and background are (according to the model) indistinguishable.
 Furthermore the best color model, according to our results, is the normalized
 $rgb$ model. That is, the $rgb$ color model had the best overall performance
-across the domains and various histogramsizes.
+across the domains and various histogram sizes.
 
-\newpage
 \section{Future Work} \label{sec:future}
 A lot can be improved in the current implementation. Some of these improvements
 are:
