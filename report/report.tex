@@ -8,6 +8,7 @@
 \usepackage{algorithmic}
 \usepackage{amsmath, amsthm, amssymb}
 \usepackage{subfigure}
+\usepackage{verbatim}
 \usepackage[english]{babel}
 
 % The report should be a description of your work during the lab sessions,
@@ -22,7 +23,7 @@
 % your design and them describe how you implemented this change or, for lack of
 % time, describe how you would change your design. 
 
-\title{Intelligent Multimedia Systems \\ Mean Shift Tracker}
+\title{Intelligent Multimedia Systems \\ Mean Shift Tracker and Color Models}
 
 \author{F. Huizinga [0418862], B. Stoeller [0426857] \\
       \{folkerthuizinga,bramstoeller\}@gmail.com}
@@ -59,16 +60,16 @@ implementation of the tracking algorithm and the object model seperatly.
 
 \subsection{Object Model}
 The object model is represented as a 2D or 3D histogram on the following color
-spaces: rgb, xyz, RGB, HSI and XYZ. We decided to use a fixed number of total
-bins (i.e. the number of bins is not affected by the number of dimensions).
-More precise, if $N$ is the total number of bins, then the number of bins $b$
-for each dimension $i$ is $b_i = N^{1/d}$, where $d$ is the total number of
-dimensions. 
+spaces: $rgb$, $xyz$, $RGB$, $HSI$ and $XYZ$. We decided to use a fixed number
+of total bins (i.e. the number of bins is not affected by the number of
+dimensions).  More precise, if $N$ is the total number of bins, then the number
+of bins $b$ for each dimension $i$ is $b_i = N^{1/d}$, where $d$ is the total
+number of dimensions. 
 
 \subsection{Tracking Algorithm}
 Algorithm \ref{alg:mst} shows our toplevel implementation of the mean shift
 tracking algorithm, for the complete details we refer the reader to the
-enclosed (documented) sourcecode.
+documented sourcecode\footnote{The sourcecode can be found at http://github.com/Error323/ims}.
 \begin{algorithm}
 	\caption{MeanShiftTracker($V$, $n$)}
 	\begin{algorithmic}[1]
@@ -104,6 +105,7 @@ enclosed (documented) sourcecode.
 \end{algorithm}
 
 
+\newpage
 \section{Experiments and Results}
 For our experiments we applied the tracker to videos within two different
 domains, nature and sports. Figure \ref{fig:videos} shows the tracker in action
@@ -137,7 +139,7 @@ $15625$ & $125$     & $25$\\
 \caption{Histogram sizes.}
 \label{table:bins}
 \end{table}
-For an (somewhat) objective analysis of the various colormodels and various
+For an (somewhat) objective analysis of the various color models and various
 histogram sizes, we chose to manually tag the objects within the frame
 sequences of each video. Figures \ref{fig:cheetah} and \ref{fig:soccer} show
 our final results for the tracking of the cheetah's head and orange soccer
@@ -146,7 +148,7 @@ Both figures show four graphs with the frame number on the $x$-axis and the
 euclidian distance, between the tracker's output and our labelled data, on the
 $y$-axis. Each of the four graphs corresponds to a certain total number of
 bins. From these results we can see that the $rgb$ model is the only model that
-doesn't fail in all of the cases. This indicates that the $rgb$ colormodel is a
+doesn't fail in all of the cases. This indicates that the $rgb$ color model is a
 robust one and would indeed be our choice for object tracking.
 \begin{figure}[!ht]
 \centering
@@ -167,11 +169,11 @@ robust one and would indeed be our choice for object tracking.
 \includegraphics[height=6.0cm]{img/earth_cheetah_15625}
 \label{fig:d}
 }
-\caption{Each graph shows the performance of the six different colormodels for
+\caption{Each graph shows the performance of the six different color models for
 a number of bins on the cheetah movie when tracking the cheetah's head.
-\ref{fig:a} shows that several colormodels have completely lost track,
+\ref{fig:a} shows that several color models have completely lost track,
 indicating that $64$ is not enough. In \ref{fig:b} just the $xyz$ model failed.
-Both \ref{fig:c} and \ref{fig:d} all colormodels show good performance.
+Both \ref{fig:c} and \ref{fig:d} all color models show good performance.
 Indicating that the more bins used, the better the model becomes.}
 \label{fig:cheetah}
 \end{figure}
@@ -195,28 +197,27 @@ Indicating that the more bins used, the better the model becomes.}
 \includegraphics[height=6.0cm]{img/soccer_orange_15625}
 \label{fig:d}
 }
-\caption{Each graph shows the performance of the six different colormodels for
+\caption{Each graph shows the performance of the six different color models for
 a number of bins on the soccer movie when tracking the orange player. All four
-graphs show a very distinctive pattern on the colormodels that lost track, this
+graphs show a very distinctive pattern on the color models that lost track, this
 is the result of occlusion caused by a white player. The white player walks in
 front of the orange target and pushes the model away at which point it finds a
 new orange player and starts tracking him.}
 \label{fig:soccer}
 \end{figure}
 
-\newpage
 \section{Conclusions}
 This report introduced an implementation of the mean shift tracking algorithm
-together with various colormodels applied to videos from two different domains.
+together with various color models applied to videos from two different domains.
 From the results we conclude that a significant histogramsize should be chosen
 to represent a model for robust tracking. An insufficient amount of bins
 overgeneralizes the model, at which point the tracker loses its target as
 target and background are (according to the model) indistinguishable.
-Furthermore the best colormodel, according to our results, is the normalized
-$rgb$ model. That is, the $rgb$ colormodel had the best overall performance across
-the domains and various histogramsizes.
+Furthermore the best color model, according to our results, is the normalized
+$rgb$ model. That is, the $rgb$ color model had the best overall performance
+across the domains and various histogramsizes.
 
-
+\newpage
 \section{Future Work}
 A lot can be improved in the current implementation. Some of these improvements
 are:
