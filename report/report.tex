@@ -35,8 +35,8 @@
 
 \begin{abstract}
 This report describes the implementation and results of a mean shift tracker
-using the Epanechnikov kernel and various color space models. Furthermore we
-perform some analysis on the tracker and color models with the use of two
+using the Epanechnikov kernel and various color space models. Furthermore, we
+perform various analyses on the tracker and color models with the use of two
 videos within different domains.
 \end{abstract}
 
@@ -48,7 +48,7 @@ histogram in some color space. The tracking algorithm is the Mean Shift
 Algorithm~\cite{kernel-basedobject, real-timetracking}. This report compares
 five different color spaces to represent the Object Model and their performance
 is measured using two videos in different domains (sport and nature). The
-report is organized as follows.  Section \ref{sec:implementation} describes the
+report is organized as follows:  Section \ref{sec:implementation} describes the
 implementation of the algorithm. The experiments and results are shown in
 Section \ref{sec:results}. Section \ref{sec:conclusion} presents our
 conclusions, and finally possible improvements are shown in Section
@@ -57,20 +57,21 @@ conclusions, and finally possible improvements are shown in Section
 
 \section{Implementation} \label{sec:implementation}
 For our implementation we used the Matlab programming language. We describe the
-implementation of the tracking algorithm and the object model seperatly.
+implementation of the tracking algorithm and the object model separately.
 
 \subsection{Object Model} \label{sec:model}
 The object model is represented as a 2D or 3D histogram on the following color
 spaces: $rgb$, $xyz$, $RGB$, $HSV$ and $XYZ$. We decided to use a fixed number
 of total bins (i.e. the number of bins is not affected by the number of
-dimensions).  More precise, if $N$ is the total number of bins, then the number
+dimensions).  More formally, if $N$ is the total number of bins, then the number
 of bins $b$ for each dimension $i$ is $b_i = N^{1/d}$, where $d$ is the total
 number of dimensions. 
 
 \subsection{Tracking Algorithm} \label{sec:mst}
 Algorithm \ref{alg:mst} shows our toplevel implementation of the mean shift
 tracking algorithm, for the complete details we refer the reader to the
-documented sourcecode\footnote{The sourcecode can be found at http://github.com/Error323/ims}.
+documented sourcecode\footnote{The sourcecode can be found at
+http://github.com/Error323/ims}.
 
 \begin{figure}
 \centering
@@ -151,7 +152,7 @@ $15625$ & $125$     & $25$\\
 In both videos a distinctive object was tracked using the various color models
 and for each color model various histogram sizes, see Table \ref{table:bins}.
 
-For an (somewhat) objective analysis of the various color models and various
+For a (somewhat) objective analysis of the various color models and various
 histogram sizes, we chose to manually tag the target objects within the frame
 sequences of each video. Figures \ref{fig:soccer} and \ref{fig:cheetah} show
 our final results for the tracking of the orange soccer player and the
@@ -160,7 +161,7 @@ number on the $x$-axis and the
 euclidian distance, between the tracker's output and our labelled data, on the
 $y$-axis. Each of the four graphs corresponds to a certain total number of
 bins. From these results we can see that the $rgb$ model is the only model that
-doesn't fail in all of the cases. This indicates that the $rgb$ color model is a
+does not fail in all of the cases. This indicates that the $rgb$ color model is a
 robust one and would indeed be our choice for object tracking.
 \begin{figure}
 \centering
@@ -184,7 +185,7 @@ robust one and would indeed be our choice for object tracking.
 \caption{Each graph shows the performance of the five different color models
 for a number of bins on the soccer movie when tracking the orange player. All
 four graphs show a very distinctive pattern on the color models that lost
-track, this is the result of occlusion caused by a white player. The white
+track. This is the result of occlusion caused by a white player. The white
 player walks in front of the orange player (the target) and pushes the model
 away at which point it finds a new orange player and starts tracking him.}
 \label{fig:soccer}
@@ -212,9 +213,9 @@ away at which point it finds a new orange player and starts tracking him.}
 \caption{Each graph shows the performance of the five different color models for
 a number of bins on the cheetah movie when tracking the cheetah's head.
 \ref{fig:2a} shows that several color models have completely lost track,
-indicating that $64$ is not enough. In \ref{fig:2b} just the $xyz$ model failed.
-Both \ref{fig:2c} and \ref{fig:2d} all color models show good performance.
-Indicating that the more bins used, the better the model becomes.}
+indicating that $64$ is not enough. In \ref{fig:2b} only the $xyz$ model failed.
+In both \ref{fig:2c} and \ref{fig:2d} all color models show good performance.
+This indicates that the more bins used, the better the model becomes.}
 \label{fig:cheetah}
 \end{figure}
 
@@ -223,9 +224,9 @@ This report introduced an implementation of the mean shift tracking algorithm
 together with various color models applied to videos from two different domains.
 From the results we conclude that a significant histogram size should be chosen
 to represent a model for robust tracking. An insufficient amount of bins
-overgeneralizes the model, at which point the tracker loses its target as
-target and background are (according to the model) indistinguishable.
-Furthermore the best color model, according to our results, is the normalized
+overgeneralizes the model, at which point the tracker loses its target object as
+both the target and background are (according to the model) indistinguishable.
+Furthermore, the best color model, according to our results, is the normalized
 $rgb$ model. That is, the $rgb$ color model had the best overall performance
 across the domains and various histogram sizes.
 
@@ -238,8 +239,8 @@ select the best scale for each frame using the Bhattacharyya distance.}
 \item{\emph{Kalman}, improve the tracker by applying a Kalman filter to get
 (even) better approximations in future frames.}
 \item{\emph{Color}, on the manual selection of the object to track, one could
-perform some analysis to determine which color space is best suited for the
-target model. For example the color space model with the highest variance could
+perform several analyses to determine which color space is best suited for the
+target model. For example, the color space model with the highest variance could
 be used.}
 \item{\emph{Spatial}, divide the kernel into several parts to store spatial
 information for more discriminative models.}
