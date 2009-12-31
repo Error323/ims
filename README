@@ -18,9 +18,9 @@ SYNOPSIS
     tracker VIDEO_FOLDER
 
 DESCRIPTION
-    The mean shift tracker tracks an objet in a sequence of video frames. You
-    an specify a path to a video file or a path to a folder containg separate
-    video frames as images.
+	The mean shift tracker tracks an object in a sequence of video frames. You
+	specify a path to a video file or a path to a folder containg separate
+	video frames as images.
 
 OPTIONS
     In the settings file globals.m several options can be set. Be aware of the
@@ -29,7 +29,7 @@ OPTIONS
     testall.m but it might still exist if testall.m is preemptively terminated.
 
     DEBUG - Debug mode
-        Specifies the debug mode. The debug mode van be a boolean, a string or
+        Specifies the debug mode. The debug mode can be a boolean, a string or
         a set of strings.    
             false- display only the most important debug information
             true - display any debug information
@@ -108,7 +108,7 @@ SYNOPSIS
     cleanup
 
 DESCRIPTION
-    Empties the cache forder.
+    Empties the cache folder.
 
 --------------------------------------------------------------------------------
 
@@ -135,8 +135,6 @@ SYNOPSIS
     figures
 
 DESCRIPTION
-    Creates several graphs and extracts some frames from the result video's.
-    This function asumes that ground truth data, statistics and result video's
+    Creates several graphs and extracts some frames from the result videos.
+    This function asumes that ground truth data, statistics and result videos
     are available.
-
-
