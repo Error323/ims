@@ -162,6 +162,22 @@ $y$-axis. Each of the four graphs corresponds to a certain total number of
 bins. From these results we can see that the $rgb$ model is the only model that
 doesn't fail in all of the cases. This indicates that the $rgb$ color model is a
 robust one and would indeed be our choice for object tracking.
+
+\begin{table}
+\centering
+\begin{tabular}{r||r|r|r|r|r}
+	      & $RGB$ & $rgb$ & $HSV$ & $XYZ$ & $xyz$ \\ \hline \hline
+	   64 &  51.8 &   6.8 &   8.1 & 114.2 &  81.3 \\ \hline
+	  729 &  57.9 &   5.7 &   5.7 &  45.8 &  66.5 \\ \hline
+	 4096 &  31.5 &   4.8 &  56.8 &  58.4 &   5.5 \\ \hline
+	15625	&  44.8 &   4.4 &   4.5 &  57.9 &   4.1 \\ \hline
+\end{tabular}
+\caption{Mean Euclidean error derived from 201 frames from the soccer domain and
+300 frames from the nature domain. Note that normalized $rgb$ results in the
+highest accuracy.}
+\label{table:error}
+\end{table}
+
 \begin{figure}
 \centering
 \subfigure[$64$ bins]{
@@ -232,6 +248,11 @@ across the domains and various histogram sizes.
 \section{Future Work} \label{sec:future}
 A lot can be improved in the current implementation. Some of these improvements
 are:
+\paragraph{Scale} The current implementation is not scale invariant. This
+results in tracking problems when an object is getting closer or further away
+from the camera or when a camera zooms in or out. In these cases the target
+model gets outdated. 
+
 \begin{itemize}
 \item{\emph{Scale}, compute the Epanechnikov kernel for various scales and
 select the best scale for each frame using the Bhattacharyya distance.}
