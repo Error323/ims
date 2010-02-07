@@ -147,10 +147,10 @@ $4096$  & $64$      & $16$\\\hline
 $15625$ & $125$     & $25$\\
 \end{tabular}
 \caption{Histogram sizes (i.e. number of bins).}
-\label{table:bins}
+\label{tbl:bins}
 \end{table}
 In both videos a distinctive object was tracked using the various color models
-and for each color model various histogram sizes, see Table \ref{table:bins}.
+and for each color model various histogram sizes, see Table \ref{tbl:bins}.
 
 For a (somewhat) objective analysis of the various color models and various
 histogram sizes, we chose to manually tag the target objects within the frame
@@ -171,13 +171,32 @@ robust one and would indeed be our choice for object tracking.
 	   64 &  51.8 &   6.8 &   8.1 & 114.2 &  81.3 \\ \hline
 	  729 &  57.9 &   5.7 &   5.7 &  45.8 &  66.5 \\ \hline
 	 4096 &  31.5 &   4.8 &  56.8 &  58.4 &   5.5 \\ \hline
-	15625	&  44.8 &   4.4 &   4.5 &  57.9 &   4.1 \\ \hline
+	15625 &  44.8 &   4.4 &   4.5 &  57.9 &   4.1 \\ \hline
 \end{tabular}
 \caption{Mean Euclidean error derived from 201 frames from the soccer domain and
-300 frames from the nature domain. Note that using normalized $rgb$ results in
-the highest accuracy.}
-\label{table:error}
+300 frames from the nature domain.}
+\label{tbl:error}
 \end{table}
+
+The mean Euclidean error between the tracked target object and the ground truth
+we annotated by hand is shown in table \ref{tbl:error}. Note that using
+normalized $rgb$ results in the highest accuracy.
+
+In figure \ref{fig:soccer} and \ref{fig:cheetah} we compared the performance of
+the five different color models for four different numbers bins on the soccer
+movie when tracking the orange player and cheetah movie when tracking the
+cheetah's head respectively. All graphs show a very distinctive pattern on the
+color models that lost track. In the socer domain (figure \ref{fig:socer}) this
+is the result of occlusion caused by a white player. The white player walks in
+front of the orange player (the target) and pushes the model away at which
+point it finds a new orange player and starts tracking him. In the nature
+domain (figure \ref{fig:cheetah}) this is the moment where the background is
+classified as the target object and the tracker starts tracking the background.
+
+\ref{fig:2a} shows that several color models have completely lost track,
+indicating that $64$ bins is not enough. In \ref{fig:2b} only the $xyz$ model failed.
+In both \ref{fig:2c} and \ref{fig:2d} all color models show good performance.
+This indicates that the more bins used, the better the model becomes.
 
 \begin{figure}
 \centering
@@ -201,9 +220,7 @@ the highest accuracy.}
 \caption{Each graph shows the performance of the five different color models
 for a number of bins on the soccer movie when tracking the orange player. All
 four graphs show a very distinctive pattern on the color models that lost
-track. This is the result of occlusion caused by a white player. The white
-player walks in front of the orange player (the target) and pushes the model
-away at which point it finds a new orange player and starts tracking him.}
+track.}
 \label{fig:soccer}
 \end{figure}
 
@@ -228,10 +245,9 @@ away at which point it finds a new orange player and starts tracking him.}
 }
 \caption{Each graph shows the performance of the five different color models for
 a number of bins on the cheetah movie when tracking the cheetah's head.
-\ref{fig:2a} shows that several color models have completely lost track,
-indicating that $64$ is not enough. In \ref{fig:2b} only the $xyz$ model failed.
-In both \ref{fig:2c} and \ref{fig:2d} all color models show good performance.
-This indicates that the more bins used, the better the model becomes.}
+\ref{fig:2a} shows that several color models have completely lost track. In
+\ref{fig:2b} only the $xyz$ model failed. In both \ref{fig:2c} and \ref{fig:2d}
+all color models show good performance.}
 \label{fig:cheetah}
 \end{figure}
 
