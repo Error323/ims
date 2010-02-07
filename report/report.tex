@@ -55,6 +55,46 @@ conclusions, and finally possible improvements are shown in Section
 \ref{sec:future}.
 
 
+\section{Color Spaces} \label{sec:color}
+In this paper we compare the use of several color spaces. For the conveinience
+of the reader we will give a short outline of the color spaces we used. All of
+them are described in much more detail in \cite{Gevers}.
+
+\subsection{\textit{RGB} - Red Green Blue}
+The $R$, $G$ and $B$  color features correspond to the primary colors red,
+green and blue as they are observed by humans and most digital cameras. The
+$RGB$ color space is dependent on the intensity, color and direction of the
+illumination. It is therefore sensitive to shadows and global illumination
+changes.
+
+\subsection{\textit{rgb} - Normalized Red Green Blue}
+Again the $r$, $g$ and $b$  color features correspond to the primary colors.
+However in the $rgb$ space they define the ratio or $R$, $G$ and $B$ rather than
+the absolute intensity of $R$, $G$ and $B$. $r$, $g$ and $b$ are calculated by
+dividing all three channels $R$, $G$ and $B$ by their total sum (See equation
+\ref{eq:r} - \ref{eq:b}). A rather problematic side effect of this dividion is
+that normalized $rgb$ colors become unstable and thereby meaningless when the
+intensity is small. Because $r$, $g$ and $b$ are normalized, by definition they
+sum up to one. This means we are allowed to neglect one of the channels (e.g.
+the blue channel) because it's information is hidden in the other two channels.
+This has notable computational benefits. Because it changes the order of the
+color space from $n^3$ to $n^2$.
+
+\begin{equation}
+  r = \frac{R}{R+G+B}
+  \label{eq:r}
+\end{equation}
+\begin{equation}
+  g = \frac{G}{R+G+B}
+  \label{eq:g}
+\end{equation}
+\begin{equation}
+  b = \frac{B}{R+G+B}
+  \label{eq:b}
+\end{equation}
+
+\subsection{\textit{HSV} - Hue Saturation Value}
+
 \section{Implementation} \label{sec:implementation}
 For our implementation we used the Matlab programming language. We describe the
 implementation of the tracking algorithm and the object model separately.
@@ -123,13 +163,13 @@ track the head of a cheetah chasing its prey.}
 \label{alg:mst}
 \end{algorithm}
 
-\newpage
-
 \section{Experiments and Results} \label{sec:results}
 For our experiments we applied the tracker to videos within two different
 domains, nature and sports. Figure \ref{fig:videos} shows the tracker in action
-on both domains. 
-\begin{table}
+on both domains. In both videos a distinctive object was tracked using the various color models
+and for each color model various histogram sizes, see Table \ref{tbl:bins}.
+
+\begin{table}[h!]
 \centering
 \begin{tabular}{c|c|c}
 $N$   & $N^{1/2}$ & $N^{1/3}$\\\hline\hline
@@ -149,16 +189,16 @@ $15625$ & $125$     & $25$\\
 \caption{Histogram sizes (i.e. number of bins).}
 \label{tbl:bins}
 \end{table}
-In both videos a distinctive object was tracked using the various color models
-and for each color model various histogram sizes, see Table \ref{tbl:bins}.
 
 For a (somewhat) objective analysis of the various color models and various
 histogram sizes, we chose to manually annotate the position of the target
-objects within the frame sequences of each video.In figure \ref{fig:soccer}
+objects within the frame sequences of each video. In figures \ref{fig:soccer}
 and \ref{fig:cheetah} we compared the performance of
-the five different color models for four different numbers bins on the soccer
+the five different color models for four different numbers of bins on the soccer
 movie when tracking the orange player and cheetah movie when tracking the
-cheetah's head respectively. Both figures show our final results displayed in
+cheetah's head respectively.
+
+Both figures show our final results displayed in
 four graphs with frame numbers on the $x$-axis and the Euclidean distance,
 between the tracker's output and our labelled data, on the $y$-axis. All graphs
 show a very distinctive pattern on the color models that lost track. In the
@@ -166,15 +206,18 @@ sports domain (figure \ref{fig:soccer}) this is the result of occlusion caused b
 a white player. The white player walks in front of the orange player (the
 target object) and pushes the model away at which point it finds a new orange
 player and starts tracking him. In the nature domain (figure \ref{fig:cheetah})
-this is the moment where the background is classified as the target object and
-the tracker starts tracking the background.
+if the tracker gets lost this means that some portion of the background is
+classified as the target object and the tracker starts tracking that region
+instead.\\
 
-\ref{fig:2a} shows that several color models have completely lost track,
-indicating that $64$ bins is not enough. In \ref{fig:2b} only the $xyz$ model failed.
-In both \ref{fig:2c} and \ref{fig:2d} all color models show good performance.
-This indicates that the more bins used, the better the model becomes.
+The mean Euclidean error between the tracked target object and the ground truth
+we annotated by hand is shown in table \ref{tbl:error}. Using the normalized
+$rgb$ color space results in the highest accuracy for all our test cases.
+This indicates that the $rgb$ color model is a robust one and would indeed be
+our choice for object tracking. However we should note that running tests in two
+domains might not be sufficient to determine the significance of these results.
 
-\begin{table}
+\begin{table}[h!]
 \centering
 \begin{tabular}{r||r|r|r|r|r}
 	      & $RGB$ & $rgb$ & $HSV$ & $XYZ$ & $xyz$ \\ \hline \hline
@@ -188,14 +231,7 @@ This indicates that the more bins used, the better the model becomes.
 \label{tbl:error}
 \end{table}
 
-The mean Euclidean error between the tracked target object and the ground truth
-we annotated by hand is shown in table \ref{tbl:error}. Using the normalized
-$rgb$ color space results in the highest accuracy for all our test cases.
-This indicates that the $rgb$ color model is a robust one and would indeed be
-our choice for object tracking. However we should note that running tests in two
-domains might not be sufficient to determine the significance of these results.
-
-\begin{figure}
+\begin{figure}[h!]
 \centering
 \subfigure[$64$ bins]{
 \includegraphics[height=6.0cm]{img/soccer_orange_64}
@@ -221,7 +257,12 @@ track.}
 \label{fig:soccer}
 \end{figure}
 
-\begin{figure}
+Figure \ref{fig:2a} shows that several color models have completely lost track,
+indicating that $64$ bins is not enough. In \ref{fig:2b} only the $xyz$ model failed.
+In both \ref{fig:2c} and \ref{fig:2d} all color models show good performance.
+This indicates that the more bins used, the better the model becomes.
+
+\begin{figure}[h!]
 \centering
 \subfigure[$64$ bins]{
 \includegraphics[height=6.0cm]{img/earth_cheetah_64}
@@ -260,35 +301,38 @@ $rgb$ model. That is, the $rgb$ color model had the best overall performance
 across the domains and various histogram sizes.
 
 \section{Future Work} \label{sec:future}
-A lot can be improved in the current implementation. Some of these improvements
-are:
-\paragraph{Scale} The current implementation is not scale invariant. This
+A lot can be improved in the current implementation. We will discuss some of
+these improvements in this section.
+
+\paragraph{Scale Invariance} The current implementation is not scale invariant. This
 results in tracking problems when an object is getting closer or further away
 from the camera or when a camera zooms in or out. In these cases the target
 model gets outdated and the eventually the tracker will fail. Implementing
-scale invariance will solve this problem. This can be done by ``Compute the
+scale invariance will solve this problem. This can be done by computing the
 Epanechnikov kernel for various scales and select the best scale for each
-frame using the Bhattacharyya distance'' [TODO: rewrite and explain]
+frame using the Bhattacharyya distance.
 
-\paragraph{Kalman} When occlusion or abrupt [TODO: better description] camera
-motion occure the tracker tends to jitter a lot and in some cases it might lose
-the target object. By applying a Kalman filter an assumption about the expected
-motion (i.e. the expected location of the target object in the next frame) is made
-and therefore the tracker would become much more stable.
+\paragraph{Kalman Filter} When the target object gets occluded by another object
+or some other part of the scene the tracker might lose the target object. In
+general the tracker tends to jitter a lot while tracking the target object.
+It's likely that applying a Kalman Filter will solve both these problems. By
+doing so, an assumption about the expected motion (i.e. the expected location
+of the target object in the next frame) is made and therefore the tracker would
+become much more stable.
 
-\paragraph{Color} The tracker asumes a color model has been chosen by the user /
-engeneer. We suspect that the best choice for a color model depends on the scene
-or the domain. It might be a good idea to implement some automated analysis to
+\paragraph{Color Space} The tracker asumes a color model has a priori been
+chosen. We suspect that the best choice for a color model depends on the domain
+or the scene. It might be a good idea to implement some automated analysis to
 determine which color space is best suited for the target model for every
 induividual scene. For example the color space model with the highest variance
 could be chosen or the color model in which the target object differs most from
 the rest of the scene.
 
-\paragraph{Spatial layout} To improve the target model (especially when complex
+\paragraph{Spatial Layout} To improve the target model (especially when complex
 target objects have to be tracked) one could divide the kernel into several
-tiles [TODO: cite ``adjacent-line-segments-paper'' ?] to store some information
-about the spatial layout of the target object to create more discriminative
-models. One should use caution with respect to the problem of overfitting.
+tiles to store some information about the spatial layout of the target object
+to create more discriminative models. One should use caution with respect to
+the problem of overfitting.
 
 \renewcommand\bibname{References}
 \bibliography{references}
