@@ -36,7 +36,7 @@
 \begin{abstract}
 This report describes the implementation and results of a mean shift tracker
 using the Epanechnikov kernel and various color space models. Furthermore, we
-perform various analyses on the tracker and color models with the use of two
+perform various analysis on the tracker and color models with the use of two
 videos within different domains.
 \end{abstract}
 
@@ -44,16 +44,54 @@ videos within different domains.
 \section{Introduction} \label{sec:intro}
 An object tracker consists of two major components, the \emph{Object Model} and
 the \emph{Tracking Algorithm}. The object model is represented using a
-histogram in some color space. The tracking algorithm is the Mean Shift
-Algorithm~\cite{kernel-basedobject, real-timetracking}. This report compares
-five different color spaces to represent the Object Model and their performance
-is measured using two videos in different domains (sport and nature). The
-report is organized as follows:  Section \ref{sec:implementation} describes the
-implementation of the algorithm. The experiments and results are shown in
-Section \ref{sec:results}. Section \ref{sec:conclusion} presents our
-conclusions, and finally possible improvements are shown in Section
-\ref{sec:future}.
+histogram in some color space, often smoothed by a kernel. The tracking
+algorithm is the Mean Shift Algorithm~\cite{kernel-basedobject,
+real-timetracking}. This report compares five different color spaces to
+represent the Object Model and their performance is measured using two videos
+in different domains (sport and nature). The report is organized as follows:
+Section \ref{sec:meanshift} describes the basic idea behind the mean shift
+tracker. Section \ref{sec:implementation} describes the implementation of the
+algorithm. The experiments and results are shown in Section \ref{sec:results}.
+Section \ref{sec:conclusion} presents our conclusions, and finally possible
+improvements are shown in Section \ref{sec:future}.
 
+\section{Mean Shift Tracker} \label{sec:meanshift}
+Mean shift tracking is a method to perform tracking of a non-rigid object as
+seen from a (moving) camera suitable for realtime applications. It locates the
+most probable target in the current frame by computing the mean shift
+iterations. The distinction between the \emph{Object Model} and the target
+candidates is defined by a metric from the Bhattacharyya coefficient. The
+\emph{Object Model} is a color histogram defined in some colorspace on which a
+kernel is applied. For our implementation we chose the Epanechnikov kernel,
+because of its nice properties.
+
+\subsection{Epanechnikov Kernel}
+The \emph{Object Model} is acquired by the histogram of a square certain region
+within a frame. As objects are usually not square, it makes sense to rely more
+on the centerregion of the ellipsoidal within the square. This is achieved by
+applying a smoothing kernel over the region. For our kernel we chose the
+Epanechnikov kernel, because its derivative reduces to a constant resulting in
+a simple weighted average for the mean shift computation. The kernel is defined
+as:
+\begin{equation}
+k(\mathbf{x}) = \left\{
+\begin{array}{ll}
+\frac{1}{2}c^{-1}_d(d+2)(1-\mathbf{x}) & \textrm{if}~\mathbf{x} \leq 1 \\
+0 & \textrm{otherwise}
+\end{array}
+\right.
+\end{equation}
+Where $c_d$ is the volume of the unit $d$-dimensional sphere.
+
+\subsection{Bhattacharyya Distance}
+To determine the best candidate within a frame, a certain distance metric is
+required that is able to quantify the overal similarities between target
+candidates and the target model. For this the Bhattacharyya distance is used:
+\begin{equation}
+d(\mathbf{p},\mathbf{q}) = \sqrt{1 - \sum^m_{u=1} \sqrt{\mathbf{p}(u) \cdot \mathbf{q}(u)}}
+\end{equation}
+Where $\mathbf{p}$ and $\mathbf{q}$ denote target and candidate model respectively and $m$
+denotes the number of histogram bins.
 
 \section{Implementation} \label{sec:implementation}
 For our implementation we used the Matlab programming language. We describe the
