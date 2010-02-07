@@ -76,8 +76,8 @@ as:
 \begin{equation}
 k(\mathbf{x}) = \left\{
 \begin{array}{ll}
-\frac{1}{2}c^{-1}_d(d+2)(1-\mathbf{x}) & \textrm{if}~\mathbf{x} \leq 1 \\
-0 & \textrm{otherwise}
+\frac{1}{2}c^{-1}_d(d+2)(1-\|\mathbf{x}\|^2), & \textrm{if}~\|\mathbf{x}\| \leq 1 \\
+0, & \textrm{otherwise}
 \end{array}
 \right.
 \end{equation}
@@ -94,7 +94,7 @@ Where $\mathbf{p}$ and $\mathbf{q}$ denote target and candidate model respective
 denotes the number of histogram bins.
 
 \section{Color Spaces} \label{sec:color}
-In this paper we compare the use of several color spaces. For the conveinience
+In this report we compare the use of several color spaces. For the conveinience
 of the reader we will give a short outline of the color spaces we used. All of
 them are described in much more detail in \cite{Gevers}.
 
@@ -328,15 +328,18 @@ all color models show good performance.}
 \end{figure}
 
 \section{Conclusions} \label{sec:conclusion}
-This report introduced an implementation of the mean shift tracking algorithm
-together with various color models applied to videos from two different domains.
-From the results we conclude that a significant histogram size should be chosen
-to represent a model for robust tracking. An insufficient amount of bins
-overgeneralizes the model, at which point the tracker loses its target object as
-both the target and background are (according to the model) indistinguishable.
-Furthermore, the best color model, according to our results, is the normalized
-$rgb$ model. That is, the $rgb$ color model had the best overall performance
-across the domains and various histogram sizes.
+This report introduced an implementation of the mean shift tracking algorithm,
+comparing its performance using various color models applied to videos from two
+different domains.  From the results we conclude that a significant histogram
+size should be chosen to represent a model for robust tracking. An insufficient
+amount of bins overgeneralizes the model, at which point the tracker loses its
+target object as both the target and background are (according to the model)
+indistinguishable.  Furthermore, the best color model, according to our
+results, is the normalized $rgb$ model. That is, the $rgb$ color model had the
+best overall performance across the domains and various histogram sizes.
+Although the mean shift tracker is indeed robust, it does have its limitations.
+It has difficulty handling occlusions, and when two similar objects overlap it
+can jump to the other object.
 
 \section{Future Work} \label{sec:future}
 A lot can be improved in the current implementation. We will discuss some of
