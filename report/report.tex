@@ -163,6 +163,22 @@ $y$-axis. Each of the four graphs corresponds to a certain total number of
 bins. From these results we can see that the $rgb$ model is the only model that
 does not fail in all of the cases. This indicates that the $rgb$ color model is a
 robust one and would indeed be our choice for object tracking.
+
+\begin{table}
+\centering
+\begin{tabular}{r||r|r|r|r|r}
+	      & $RGB$ & $rgb$ & $HSV$ & $XYZ$ & $xyz$ \\ \hline \hline
+	   64 &  51.8 &   6.8 &   8.1 & 114.2 &  81.3 \\ \hline
+	  729 &  57.9 &   5.7 &   5.7 &  45.8 &  66.5 \\ \hline
+	 4096 &  31.5 &   4.8 &  56.8 &  58.4 &   5.5 \\ \hline
+	15625	&  44.8 &   4.4 &   4.5 &  57.9 &   4.1 \\ \hline
+\end{tabular}
+\caption{Mean Euclidean error derived from 201 frames from the soccer domain and
+300 frames from the nature domain. Note that using normalized $rgb$ results in
+the highest accuracy.}
+\label{table:error}
+\end{table}
+
 \begin{figure}
 \centering
 \subfigure[$64$ bins]{
@@ -233,18 +249,33 @@ across the domains and various histogram sizes.
 \section{Future Work} \label{sec:future}
 A lot can be improved in the current implementation. Some of these improvements
 are:
-\begin{itemize}
-\item{\emph{Scale}, compute the Epanechnikov kernel for various scales and
-select the best scale for each frame using the Bhattacharyya distance.}
-\item{\emph{Kalman}, improve the tracker by applying a Kalman filter to get
-(even) better approximations in future frames.}
-\item{\emph{Color}, on the manual selection of the object to track, one could
-perform several analyses to determine which color space is best suited for the
-target model. For example, the color space model with the highest variance could
-be used.}
-\item{\emph{Spatial}, divide the kernel into several parts to store spatial
-information for more discriminative models.}
-\end{itemize}
+\paragraph{Scale} The current implementation is not scale invariant. This
+results in tracking problems when an object is getting closer or further away
+from the camera or when a camera zooms in or out. In these cases the target
+model gets outdated and the eventually the tracker will fail. Implementing
+scale invariance will solve this problem. This can be done by ``Compute the
+Epanechnikov kernel for various scales and select the best scale for each
+frame using the Bhattacharyya distance'' [TODO: rewrite and explain]
+
+\paragraph{Kalman} When occlusion or abrupt [TODO: better description] camera
+motion occure the tracker tends to jitter a lot and in some cases it might lose
+the target object. By applying a Kalman filter an assumption about the expected
+motion (i.e. the expected location of the target object in the next frame) is made
+and therefore the tracker would become much more stable.
+
+\paragraph{Color} The tracker asumes a color model has been chosen by the user /
+engeneer. We suspect that the best choice for a color model depends on the scene
+or the domain. It might be a good idea to implement some automated analysis to
+determine which color space is best suited for the target model for every
+induividual scene. For example the color space model with the highest variance
+could be chosen or the color model in which the target object differs most from
+the rest of the scene.
+
+\paragraph{Spatial layout} To improve the target model (especially when complex
+target objects have to be tracked) one could divide the kernel into several
+tiles [TODO: cite ``adjacent-line-segments-paper'' ?] to store some information
+about the spatial layout of the target object to create more discriminative
+models. One should use caution with respect to the problem of overfitting.
 
 \renewcommand\bibname{References}
 \bibliography{references}
