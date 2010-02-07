@@ -138,4 +138,3 @@ DESCRIPTION
     Creates several graphs and extracts some frames from the result videos.
     This function asumes that ground truth data, statistics and result videos
     are available.
-
