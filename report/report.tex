@@ -153,16 +153,26 @@ In both videos a distinctive object was tracked using the various color models
 and for each color model various histogram sizes, see Table \ref{tbl:bins}.
 
 For a (somewhat) objective analysis of the various color models and various
-histogram sizes, we chose to manually tag the target objects within the frame
-sequences of each video. Figures \ref{fig:soccer} and \ref{fig:cheetah} show
-our final results for the tracking of the orange soccer player and the
-cheetah's head respectively.  Both figures show four graphs with the frame
-number on the $x$-axis and the
-euclidian distance, between the tracker's output and our labelled data, on the
-$y$-axis. Each of the four graphs corresponds to a certain total number of
-bins. From these results we can see that the $rgb$ model is the only model that
-does not fail in all of the cases. This indicates that the $rgb$ color model is a
-robust one and would indeed be our choice for object tracking.
+histogram sizes, we chose to manually annotate the position of the target
+objects within the frame sequences of each video.In figure \ref{fig:soccer}
+and \ref{fig:cheetah} we compared the performance of
+the five different color models for four different numbers bins on the soccer
+movie when tracking the orange player and cheetah movie when tracking the
+cheetah's head respectively. Both figures show our final results displayed in
+four graphs with frame numbers on the $x$-axis and the Euclidean distance,
+between the tracker's output and our labelled data, on the $y$-axis. All graphs
+show a very distinctive pattern on the color models that lost track. In the
+soccer domain (figure \ref{fig:socer}) this is the result of occlusion caused by
+a white player. The white player walks in front of the orange player (the
+target object) and pushes the model away at which point it finds a new orange
+player and starts tracking him. In the nature domain (figure \ref{fig:cheetah})
+this is the moment where the background is classified as the target object and
+the tracker starts tracking the background.
+
+\ref{fig:2a} shows that several color models have completely lost track,
+indicating that $64$ bins is not enough. In \ref{fig:2b} only the $xyz$ model failed.
+In both \ref{fig:2c} and \ref{fig:2d} all color models show good performance.
+This indicates that the more bins used, the better the model becomes.
 
 \begin{table}
 \centering
@@ -179,24 +189,11 @@ robust one and would indeed be our choice for object tracking.
 \end{table}
 
 The mean Euclidean error between the tracked target object and the ground truth
-we annotated by hand is shown in table \ref{tbl:error}. Note that using
-normalized $rgb$ results in the highest accuracy.
-
-In figure \ref{fig:soccer} and \ref{fig:cheetah} we compared the performance of
-the five different color models for four different numbers bins on the soccer
-movie when tracking the orange player and cheetah movie when tracking the
-cheetah's head respectively. All graphs show a very distinctive pattern on the
-color models that lost track. In the socer domain (figure \ref{fig:socer}) this
-is the result of occlusion caused by a white player. The white player walks in
-front of the orange player (the target) and pushes the model away at which
-point it finds a new orange player and starts tracking him. In the nature
-domain (figure \ref{fig:cheetah}) this is the moment where the background is
-classified as the target object and the tracker starts tracking the background.
-
-\ref{fig:2a} shows that several color models have completely lost track,
-indicating that $64$ bins is not enough. In \ref{fig:2b} only the $xyz$ model failed.
-In both \ref{fig:2c} and \ref{fig:2d} all color models show good performance.
-This indicates that the more bins used, the better the model becomes.
+we annotated by hand is shown in table \ref{tbl:error}. Using the normalized
+$rgb$ color space results in the highest accuracy for all our test cases.
+This indicates that the $rgb$ color model is a robust one and would indeed be
+our choice for object tracking. However we should note that running tests in two
+domains might not be sufficient to determine the significance of these results.
 
 \begin{figure}
 \centering
