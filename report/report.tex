@@ -62,12 +62,12 @@ them are described in much more detail in \cite{Gevers}.
 
 \subsection{\textit{RGB} - Red Green Blue}
 The $R$, $G$ and $B$  color features correspond to the primary colors red,
-green and blue as they are observed by humans and most digital cameras. The
+green and blue as they are observed by most digital cameras. The
 $RGB$ color space is dependent on the intensity, color and direction of the
 illumination. It is therefore sensitive to shadows and global illumination
-changes.
+changes. We define $R, G, B \in [0,1]$.
 
-\subsection{\textit{rgb} - Normalized Red Green Blue}
+\subsection{\textit{rgb} - Normalized RGB}
 Again the $r$, $g$ and $b$  color features correspond to the primary colors.
 However in the $rgb$ space they define the ratio or $R$, $G$ and $B$ rather than
 the absolute intensity of $R$, $G$ and $B$. $r$, $g$ and $b$ are calculated by
@@ -94,6 +94,42 @@ color space from $n^3$ to $n^2$.
 \end{equation}
 
 \subsection{\textit{HSV} - Hue Saturation Value}
+The human color perception is conventially represented by the hue, saturation
+and value. Where hue represents the color, saturation the amount of color and
+value the intensity of the color. A problem using this color colorspace is that
+hue is a cicular measure resulting in an edge problem from 1 to 0 (red).
+Moreover, the hue becomes unstable when the value approaches zero.
+
+\begin{equation}
+  M = max(R,G,B)
+  \label{eq:M}
+\end{equation}
+\begin{equation}
+  m = min(R,G,B)
+  \label{eq:m}
+\end{equation}
+\begin{equation}
+  H =
+    \left\{\begin{array}{ll}
+      0, & \textrm{~if~} M = m \\
+      \frac{G-B}{M-m} \textrm{~mod~} 1,& \textrm{~if~} M = R \\
+      \frac{B-R}{M-m} + \frac{1}{3},& \textrm{~if~} M = G \\
+      \frac{R-G}{M-m} + \frac{2}{3},& \textrm{~if~} M = B \\      
+    \end{array}\right.
+  \label{eq:H}
+\end{equation}
+\begin{equation}
+  S = \frac{M-m}{M}
+  \label{eq:S}
+\end{equation}
+\begin{equation}
+  V = M
+  \label{eq:V}
+\end{equation}
+
+\subsection{\textit{XYZ} - CIE 1931 XYZ color space}
+
+\subsection{\textit{xyz} - Normalized XYZ}
 
 \section{Implementation} \label{sec:implementation}
 For our implementation we used the Matlab programming language. We describe the
@@ -169,7 +205,7 @@ domains, nature and sports. Figure \ref{fig:videos} shows the tracker in action
 on both domains. In both videos a distinctive object was tracked using the various color models
 and for each color model various histogram sizes, see Table \ref{tbl:bins}.
 
-\begin{table}[h!]
+\begin{table}[!ht]
 \centering
 \begin{tabular}{c|c|c}
 $N$   & $N^{1/2}$ & $N^{1/3}$\\\hline\hline
@@ -217,7 +253,7 @@ This indicates that the $rgb$ color model is a robust one and would indeed be
 our choice for object tracking. However we should note that running tests in two
 domains might not be sufficient to determine the significance of these results.
 
-\begin{table}[h!]
+\begin{table}[!ht]
 \centering
 \begin{tabular}{r||r|r|r|r|r}
 	      & $RGB$ & $rgb$ & $HSV$ & $XYZ$ & $xyz$ \\ \hline \hline
@@ -231,7 +267,7 @@ domains might not be sufficient to determine the significance of these results.
 \label{tbl:error}
 \end{table}
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \centering
 \subfigure[$64$ bins]{
 \includegraphics[height=6.0cm]{img/soccer_orange_64}
@@ -262,7 +298,7 @@ indicating that $64$ bins is not enough. In \ref{fig:2b} only the $xyz$ model fa
 In both \ref{fig:2c} and \ref{fig:2d} all color models show good performance.
 This indicates that the more bins used, the better the model becomes.
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \centering
 \subfigure[$64$ bins]{
 \includegraphics[height=6.0cm]{img/earth_cheetah_64}
