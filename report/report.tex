@@ -44,40 +44,39 @@ videos within different domains.
 \section{Introduction} \label{sec:intro}
 An object tracker consists of two major components, the \emph{Object Model} and
 the \emph{Tracking Algorithm}. The object model is represented using a
-histogram in some color space, often smoothed by a kernel [BRAM: Ik begrijp niet
-wat je bedoelt met smoothed]. The tracking
-algorithm is the Mean Shift Algorithm~\cite{kernel-basedobject,
-real-timetracking}. This report compares five different color spaces to
-represent the Object Model and their performance is measured using two videos
-in different domains (sport and nature). The report is organized as follows:
-Section \ref{sec:meanshift} describes the basic idea behind the mean shift
-tracker. Section \ref{sec:color} supplies some background information on color
-spaces. Section \ref{sec:implementation} describes the implementation of the
-algorithm. The experiments and results are shown in Section \ref{sec:results}.
-Section \ref{sec:conclusion} presents our conclusions, and finally possible
-improvements are shown in Section \ref{sec:future}.
+histogram in some color space, often weighted by a kernel (the center of the
+model is more important). The tracking algorithm is the Mean Shift
+Algorithm~\cite{kernel-basedobject, real-timetracking}. This report compares
+five different color spaces to represent the Object Model and their performance
+is measured using two videos in different domains (sport and nature). The
+report is organized as follows: Section \ref{sec:meanshift} describes the basic
+idea behind the mean shift tracker. Section \ref{sec:color} supplies some
+background information on color spaces. Section \ref{sec:implementation}
+describes the implementation of the algorithm. The experiments and results are
+shown in Section \ref{sec:results}.  Section \ref{sec:conclusion} presents our
+conclusions, and finally possible improvements are shown in Section
+\ref{sec:future}.
 
 \section{Mean Shift Tracker} \label{sec:meanshift}
 Mean shift tracking is a method to perform tracking of a non-rigid object as
 seen from a (moving) camera suitable for real-time applications. It locates the
 most probable target in the current frame by computing the mean shift
-iterations. [BRAM: Wat zijn dat? Mean shift operations?] The \emph{Object Model}
-is a color histogram defined in some
-color-space on which a kernel is applied [BRAM: Hoe wordt die kernel toegepast
-op het histogram?]. For our implementation we chose the
-Epanechnikov kernel, because of its nice properties. [BRAM: Welke zijn dat?] The
-distinction between the \emph{Object Model} and the target candidates is defined
-by a metric in color variation. For this metric the Bhattacharyya distance is
-chosen. 
+iterations which perform a sort of binary search on the searchspace, using the
+mean shift as primary direction. The \emph{Object Model} is a color histogram
+of a certain region defined in some color-space on which a kernel is applied .
+For our implementation we chose the Epanechnikov kernel, because of its nice
+properties (e.g. its derivative). The distinction between the \emph{Object
+Model} and the target candidates is defined by a metric in color variation. For
+this metric the Bhattacharyya distance is chosen. 
 
 \subsection{Epanechnikov Kernel}
-The \emph{Object Model} is acquired by the histogram of a square certain [BRAM: certain square?] region
-within a frame. As objects are usually not square, it makes sense to rely more
-on the center-region of the ellipsoidal within the square. This is achieved by
-applying a smoothing kernel over the region. For our kernel we chose the
-Epanechnikov kernel, because its derivative reduces to a constant [BRAM: Als de afgeleide constant is is het een rechte lijn toch?] resulting in
-a simple weighted average for the mean shift computation. The kernel is defined
-as:
+The \emph{Object Model} is acquired by the histogram of a square [BRAM: certain
+square?] region, around the object, within a frame. As objects are usually not
+square, it makes sense to rely more on the center-region of the ellipsoidal
+within the square. This is achieved by applying a smoothing kernel over the
+region. For our kernel we chose the Epanechnikov kernel, because its derivative
+reduces to a constant resulting in a simple weighted average for the mean shift
+computation. The kernel is defined as:
 \begin{equation}
 k(\mathbf{x}) = \left\{
 \begin{array}{ll}
