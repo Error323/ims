@@ -166,8 +166,45 @@ Moreover, the hue becomes unstable when the value approaches zero.
 \end{equation}
 
 \subsection{\textit{XYZ} - CIE 1931 XYZ color space}
+The $XYZ$ system is based on a additive mixture of three imaginary primaries
+$X$, $Y$ and $Z$. These primaries can not been produced nor seen by the human
+eye because they are all over-saturated (i.e. Their saturation is higher than
+100\%). However any color that can be produced or seen, can be represented by a
+mixture of $X$, $Y$ and $Z$. Because $XYZ$ is a linear combination of $RGB$,
+$XYZ$ inherrits all dependencies on the image conditions from $RGB$.
+
+\begin{equation}
+  X = 0.607 * R + 0.174 * R + 0.200 * B
+  \label{eq:X}
+\end{equation}
+\begin{equation}
+  Y = 0.299 * R + 0.587 * R + 0.114 * B
+  \label{eq:Y}
+\end{equation}
+\begin{equation}
+  Z = 0.000 * R + 0.066 * R + 1.116 * B
+  \label{eq:Z}
+\end{equation}
 
 \subsection{\textit{xyz} - Normalized XYZ}
+Similar to $rgb$, this system cancels intensity out yielding independence of
+illumination direction and intensity. And becaus $XYZ$ was a linear
+transformation on $RGB$, $xyz$ also gets unstable when the intensity is low,
+just like $rgb$.
+
+\begin{equation}
+  x = \frac{X}{X+Y+Z}
+  \label{eq:x}
+\end{equation}
+\begin{equation}
+  y = \frac{Y}{X+Y+Z}
+  \label{eq:y}
+\end{equation}
+\begin{equation}
+  z = \frac{Z}{X+Y+Z}
+  \label{eq:z}
+\end{equation}
+
 
 \section{Implementation} \label{sec:implementation}
 For our implementation we used the Matlab programming language. We describe the
