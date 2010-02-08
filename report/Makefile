@@ -15,6 +15,6 @@ realclean: clean
 	rm -f *.pdf
 
 public: all
-	install $(REPORT).pdf /var/www/
+	install $(REPORT).pdf /home/fhuizing/www/
 
 

@@ -12,10 +12,10 @@
 \usepackage[english]{babel}
 
 % The report should be a description of your work during the lab sessions,
-% focussing on the mean shift tracker. You should describe what you did, what you
+% focusing on the mean shift tracker. You should describe what you did, what you
 % noticed and what you could have done different or could have improved. As you
-% implemented the tracker you noticed different behaviour if you changed parts of
-% the tracker, e.g. a different colour space or the number of bins in the
+% implemented the tracker you noticed different behavior if you changed parts of
+% the tracker, e.g. a different color space or the number of bins in the
 % histogram. Hopefully these insights have improved your tracker. This is why it
 % is essential that you test the tracker also on a video of a domain other than
 % soccer (or any other sport on a green field). This other domain will show how
@@ -57,18 +57,18 @@ improvements are shown in Section \ref{sec:future}.
 
 \section{Mean Shift Tracker} \label{sec:meanshift}
 Mean shift tracking is a method to perform tracking of a non-rigid object as
-seen from a (moving) camera suitable for realtime applications. It locates the
+seen from a (moving) camera suitable for real-time applications. It locates the
 most probable target in the current frame by computing the mean shift
 iterations. The distinction between the \emph{Object Model} and the target
 candidates is defined by a metric from the Bhattacharyya coefficient. The
-\emph{Object Model} is a color histogram defined in some colorspace on which a
+\emph{Object Model} is a color histogram defined in some color-space on which a
 kernel is applied. For our implementation we chose the Epanechnikov kernel,
 because of its nice properties.
 
 \subsection{Epanechnikov Kernel}
 The \emph{Object Model} is acquired by the histogram of a square certain region
 within a frame. As objects are usually not square, it makes sense to rely more
-on the centerregion of the ellipsoidal within the square. This is achieved by
+on the center-region of the ellipsoidal within the square. This is achieved by
 applying a smoothing kernel over the region. For our kernel we chose the
 Epanechnikov kernel, because its derivative reduces to a constant resulting in
 a simple weighted average for the mean shift computation. The kernel is defined
@@ -85,7 +85,7 @@ Where $c_d$ is the volume of the unit $d$-dimensional sphere.
 
 \subsection{Bhattacharyya Distance}
 To determine the best candidate within a frame, a certain distance metric is
-required that is able to quantify the overal similarities between target
+required that is able to quantify the overall similarities between target
 candidates and the target model. For this the Bhattacharyya distance is used:
 \begin{equation}
 d(\mathbf{p},\mathbf{q}) = \sqrt{1 - \sum^m_{u=1} \sqrt{\mathbf{p}(u) \cdot \mathbf{q}(u)}}
@@ -94,7 +94,7 @@ Where $\mathbf{p}$ and $\mathbf{q}$ denote target and candidate model respective
 denotes the number of histogram bins.
 
 \section{Color Spaces} \label{sec:color}
-In this report we compare the use of several color spaces. For the conveinience
+In this report we compare the use of several color spaces. For the convenience
 of the reader we will give a short outline of the color spaces we used. All of
 them are described in much more detail in \cite{Gevers}.
 
@@ -107,10 +107,10 @@ changes. We define $R, G, B \in [0,1]$.
 
 \subsection{\textit{rgb} - Normalized RGB}
 Again the $r$, $g$ and $b$  color features correspond to the primary colors.
-However in the $rgb$ space they define the ratio or $R$, $G$ and $B$ rather than
+However in the $rgb$ space they define the ratio of $R$, $G$ and $B$ rather than
 the absolute intensity of $R$, $G$ and $B$. $r$, $g$ and $b$ are calculated by
 dividing all three channels $R$, $G$ and $B$ by their total sum (See equation
-\ref{eq:r} - \ref{eq:b}). A rather problematic side effect of this dividion is
+\ref{eq:r} - \ref{eq:b}). A rather problematic side effect of this division is
 that normalized $rgb$ colors become unstable and thereby meaningless when the
 intensity is small. Because $r$, $g$ and $b$ are normalized, by definition they
 sum up to one. This means we are allowed to neglect one of the channels (e.g.
@@ -132,10 +132,10 @@ color space from $n^3$ to $n^2$.
 \end{equation}
 
 \subsection{\textit{HSV} - Hue Saturation Value}
-The human color perception is conventially represented by the hue, saturation
+The human color perception is most intuitively represented by the hue, saturation
 and value. Where hue represents the color, saturation the amount of color and
-value the intensity of the color. A problem using this color colorspace is that
-hue is a cicular measure resulting in an edge problem from 1 to 0 (red).
+value the intensity of the color. A problem using this color color-space is that
+hue is a circular measure resulting in an edge problem from 1 to 0 (red).
 Moreover, the hue becomes unstable when the value approaches zero.
 
 \begin{equation}
@@ -174,17 +174,16 @@ For our implementation we used the Matlab programming language. We describe the
 implementation of the tracking algorithm and the object model separately.
 
 \subsection{Object Model} \label{sec:model}
-The object model is represented as a 2D or 3D histogram on the following color
-spaces: $rgb$, $xyz$, $RGB$, $HSV$ and $XYZ$. We decided to use a fixed number
-of total bins (i.e. the number of bins is not affected by the number of
-dimensions).  More formally, if $N$ is the total number of bins, then the number
-of bins $b$ for each dimension $i$ is $b_i = N^{1/d}$, where $d$ is the total
-number of dimensions. 
+The object model is represented as a 2D or 3D histogram on the color spaces
+described previously. We decided to use a fixed number of total bins (i.e. the
+number of bins is not affected by the number of dimensions).  More formally, if
+$N$ is the total number of bins, then the number of bins $b$ for each dimension
+$i$ is $b_i = N^{1/d}$, where $d$ is the total number of dimensions. 
 
 \subsection{Tracking Algorithm} \label{sec:mst}
-Algorithm \ref{alg:mst} shows our toplevel implementation of the mean shift
+Algorithm \ref{alg:mst} shows our top level implementation of the mean shift
 tracking algorithm, for the complete details we refer the reader to the
-documented sourcecode\footnote{The sourcecode can be found at
+documented source code\footnote{The source code can be found at
 http://github.com/Error323/ims}.
 
 \begin{figure}
@@ -270,11 +269,11 @@ objects within the frame sequences of each video. In figures \ref{fig:soccer}
 and \ref{fig:cheetah} we compared the performance of
 the five different color models for four different numbers of bins on the soccer
 movie when tracking the orange player and cheetah movie when tracking the
-cheetah's head respectively.
+cheetahs head respectively.
 
 Both figures show our final results displayed in
 four graphs with frame numbers on the $x$-axis and the Euclidean distance,
-between the tracker's output and our labelled data, on the $y$-axis. All graphs
+between the trackers output and our labeled data, on the $y$-axis. All graphs
 show a very distinctive pattern on the color models that lost track. In the
 sports domain (figure \ref{fig:soccer}) this is the result of occlusion caused by
 a white player. The white player walks in front of the orange player (the
@@ -356,7 +355,7 @@ This indicates that the more bins used, the better the model becomes.
 \label{fig:2d}
 }
 \caption{Each graph shows the performance of the five different color models for
-a number of bins on the cheetah movie when tracking the cheetah's head.
+a number of bins on the cheetah movie when tracking the cheetahs head.
 \ref{fig:2a} shows that several color models have completely lost track. In
 \ref{fig:2b} only the $xyz$ model failed. In both \ref{fig:2c} and \ref{fig:2d}
 all color models show good performance.}
@@ -368,7 +367,7 @@ This report introduced an implementation of the mean shift tracking algorithm,
 comparing its performance using various color models applied to videos from two
 different domains.  From the results we conclude that a significant histogram
 size should be chosen to represent a model for robust tracking. An insufficient
-amount of bins overgeneralizes the model, at which point the tracker loses its
+amount of bins over generalizes the model, at which point the tracker loses its
 target object as both the target and background are (according to the model)
 indistinguishable.  Furthermore, the best color model, according to our
 results, is the normalized $rgb$ model. That is, the $rgb$ color model had the
@@ -397,11 +396,11 @@ doing so, an assumption about the expected motion (i.e. the expected location
 of the target object in the next frame) is made and therefore the tracker would
 become much more stable.
 
-\paragraph{Color Space} The tracker asumes a color model has a priori been
+\paragraph{Color Space} The tracker assumes a color model has a priori been
 chosen. We suspect that the best choice for a color model depends on the domain
 or the scene. It might be a good idea to implement some automated analysis to
 determine which color space is best suited for the target model for every
-induividual scene. For example the color space model with the highest variance
+individual scene. For example the color space model with the highest variance
 could be chosen or the color model in which the target object differs most from
 the rest of the scene.
 
@@ -409,7 +408,7 @@ the rest of the scene.
 target objects have to be tracked) one could divide the kernel into several
 tiles to store some information about the spatial layout of the target object
 to create more discriminative models. One should use caution with respect to
-the problem of overfitting.
+the problem of over fitting.
 
 \renewcommand\bibname{References}
 \bibliography{references}
