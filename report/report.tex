@@ -43,40 +43,39 @@ videos within different domains.
 
 \section{Introduction} \label{sec:intro}
 An object tracker consists of two major components, the \emph{Object Model} and
-the \emph{Tracking Algorithm}. The object model is represented using a
-histogram in some color space, often weighted by a kernel (the center of the
-model is more important). The tracking algorithm is the Mean Shift
-Algorithm~\cite{kernel-basedobject, real-timetracking}. This report compares
-five different color spaces to represent the Object Model and their performance
-is measured using two videos in different domains (sport and nature). The
-report is organized as follows: Section \ref{sec:meanshift} describes the basic
-idea behind the mean shift tracker. Section \ref{sec:color} supplies some
-background information on color spaces. Section \ref{sec:implementation}
-describes the implementation of the algorithm. The experiments and results are
-shown in Section \ref{sec:results}.  Section \ref{sec:conclusion} presents our
-conclusions, and finally possible improvements are shown in Section
-\ref{sec:future}.
+the \emph{Tracking Algorithm}. The object model is represented by the
+histogram, of a region which is weighted by a kernel, in some color space. The
+tracking algorithm is the Mean Shift Algorithm~\cite{kernel-basedobject,
+real-timetracking}. This report compares five different color spaces to
+represent the Object Model and their performance is measured using two videos
+in different domains (sport and nature). The report is organized as follows:
+Section \ref{sec:meanshift} describes the basic idea behind the mean shift
+tracker. Section \ref{sec:color} supplies some background information on color
+spaces. Section \ref{sec:implementation} describes the implementation of the
+algorithm. The experiments and results are shown in Section \ref{sec:results}.
+Section \ref{sec:conclusion} presents our conclusions, and finally possible
+improvements are shown in Section \ref{sec:future}.
 
 \section{Mean Shift Tracker} \label{sec:meanshift}
 Mean shift tracking is a method to perform tracking of a non-rigid object as
 seen from a (moving) camera suitable for real-time applications. It locates the
 most probable target in the current frame by computing the mean shift
-iterations which perform a sort of binary search on the searchspace, using the
-mean shift as primary direction. The \emph{Object Model} is a color histogram
-of a certain region defined in some color-space on which a kernel is applied .
-For our implementation we chose the Epanechnikov kernel, because of its nice
-properties (e.g. its derivative). The distinction between the \emph{Object
-Model} and the target candidates is defined by a metric in color variation. For
-this metric the Bhattacharyya distance is chosen. 
+iterations, which converge to the most likely location using the mean shift as
+primary direction. The \emph{Object Model} is a color histogram of a certain
+region defined in some color-space on which a kernel is applied .  For our
+implementation we chose the Epanechnikov kernel, because of its nice properties
+(e.g. its derivative). The distinction between the \emph{Object Model} and the
+target candidates is defined by a metric in color variation. For this metric
+the Bhattacharyya distance is chosen. 
 
 \subsection{Epanechnikov Kernel}
-The \emph{Object Model} is acquired by the histogram of a square [BRAM: certain
-square?] region, around the object, within a frame. As objects are usually not
-square, it makes sense to rely more on the center-region of the ellipsoidal
-within the square. This is achieved by applying a smoothing kernel over the
-region. For our kernel we chose the Epanechnikov kernel, because its derivative
-reduces to a constant resulting in a simple weighted average for the mean shift
-computation. The kernel is defined as:
+The \emph{Object Model} is acquired by the histogram of a square region, around
+the object, within a frame. As objects are usually not square, it makes sense
+to rely more on the center-region of the ellipsoidal within the square. This is
+achieved by applying a smoothing kernel over the region. For our kernel we
+chose the Epanechnikov kernel, because its derivative reduces to a constant
+resulting in a simple weighted average for the mean shift computation. The
+kernel is defined as:
 \begin{equation}
 k(\mathbf{x}) = \left\{
 \begin{array}{ll}
@@ -85,16 +84,18 @@ k(\mathbf{x}) = \left\{
 \end{array}
 \right.
 \end{equation}
-Where $c_d$ is the volume of the unit $d$-dimensional [BRAM: $d$-dimensional unit sphere?] sphere.
+Where $c_d$ is the volume of the $d$-dimensional unit sphere. Or, as it is in
+this case, the area of the two dimensional circle.
 
 \subsection{Bhattacharyya Distance}
-To determine the best candidate [BRAM: location/region?] within a frame, a certain distance metric is
-required that is able to quantify the overall similarities between target
-candidates and the target model. For this the Bhattacharyya distance is used:
+To determine the best target candidate region within a frame, a certain
+distance metric is required that is able to quantify the overall similarities
+between target candidates and the target model. For this the Bhattacharyya
+distance is used:
 \begin{equation}
 d(\mathbf{p},\mathbf{q}) = \sqrt{1 - \sum^m_{u=1} \sqrt{\mathbf{p}(u) \cdot \mathbf{q}(u)}}
 \end{equation}
-Where $\mathbf{p}$ and $\mathbf{q}$ denote [BRAM: the?] target and candidate model respectively and $m$
+Where $\mathbf{p}$ and $\mathbf{q}$ denote the target and candidate model respectively and $m$
 denotes the number of histogram bins.
 
 \section{Color Spaces} \label{sec:color}
