@@ -59,11 +59,11 @@ improvements are shown in Section \ref{sec:future}.
 Mean shift tracking is a method to perform tracking of a non-rigid object as
 seen from a (moving) camera suitable for real-time applications. It locates the
 most probable target in the current frame by computing the mean shift
-iterations. The distinction between the \emph{Object Model} and the target
-candidates is defined by a metric from the Bhattacharyya coefficient. The
-\emph{Object Model} is a color histogram defined in some color-space on which a
-kernel is applied. For our implementation we chose the Epanechnikov kernel,
-because of its nice properties.
+iterations. The \emph{Object Model} is a color histogram defined in some
+color-space on which a kernel is applied. For our implementation we chose the
+Epanechnikov kernel, because of its nice properties. The distinction between
+the \emph{Object Model} and the target candidates is defined by a metric in
+color variation. For this metric the Bhattacharyya distance is chosen. 
 
 \subsection{Epanechnikov Kernel}
 The \emph{Object Model} is acquired by the histogram of a square certain region
